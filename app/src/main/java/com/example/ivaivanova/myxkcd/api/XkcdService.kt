@@ -1,7 +1,9 @@
 package com.example.ivaivanova.myxkcd.api
 
+import com.example.ivaivanova.myxkcd.model.Comic
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -16,7 +18,7 @@ interface XkcdService {
     Endpoint that returns always the latest comics
      */
     @GET("/info.0.json")
-    fun getCurrentComic()
+    fun getCurrentComic(): Call<Comic>
 
     /*
     Endpoint that returns a requested comics by its id/number
