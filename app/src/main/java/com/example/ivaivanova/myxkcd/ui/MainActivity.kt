@@ -1,6 +1,7 @@
 package com.example.ivaivanova.myxkcd.ui
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
@@ -14,19 +15,35 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val adapter = XkcdAdapter()
+    // TODO: To understand when to use lateinit variable and when not to
+    private lateinit var viewModel: ComicsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initializeListTemp()
+        //initializeListTemp()
 
+        viewModel = ViewModelProviders.of(this)
+            .get(ComicsViewModel::class.java)
+
+        initAdapter()
+        initializeViewModel()
     }
 
-    private fun initializeListTemp() {
-
+    private fun initAdapter() {
         comics_rv.layoutManager = LinearLayoutManager(this)
         comics_rv.adapter = adapter
+    }
+
+    private fun initializeViewModel() {
+        viewModel.comicsResult.observe(this, Observer {
+            adapter.submitList(it)
+        })
+    }
+
+
+    private fun initializeListTemp() {
 
         // TODO: Move this in the ViewModel later
         val config = PagedList.Config.Builder()
