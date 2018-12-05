@@ -8,15 +8,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class XkcdDataSource : PageKeyedDataSource<String, Comic>() {
+class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
     private val api = XkcdService.create()
-    var comicId: Int? = 0
+    var comicId: Int = 0
 
 
     override fun loadInitial(
-        params: LoadInitialParams<String>,
-        callback: LoadInitialCallback<String, Comic>) {
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, Comic>) {
 
         api.getCurrentComic().enqueue(object : Callback<Comic> {
 
@@ -26,10 +26,13 @@ class XkcdDataSource : PageKeyedDataSource<String, Comic>() {
                 // TODO: Why this variable needs to be null safe?
                 val currentComic: Comic? = response.body()
                 comicList.add(currentComic!!)
-                //val comicTitle = currentComic?.safeTitle?.map { //it. }
-                comicId = comicId!! - 1
 
-                callback.onResult(comicList, null, comicId?.toString())
+                // Get the recent comic number
+                comicId = currentComic.num
+                comicId -= 1
+                Log.d("XkcdDataSource", "Current comic ID is $comicId")
+
+                callback.onResult(comicList, null, comicId)
 
             }
 
@@ -40,16 +43,38 @@ class XkcdDataSource : PageKeyedDataSource<String, Comic>() {
     }
 
     override fun loadAfter(
-        params: LoadParams<String>,
-        callback: LoadCallback<String, Comic>) {
+        params: LoadParams<Int>,
+        callback: LoadCallback<Int, Comic>) {
 
         // TODO: Make the second call here by setting the comicId for the key for next page
-        //api.getComicById(comicsId = comicId)
+        api.getComicById(comicId).enqueue(object: Callback<Comic> {
+
+            val comicList = mutableListOf<Comic>()
+
+            override fun onResponse(call: Call<Comic>, response: Response<Comic>) {
+                val currentComic = response.body()
+
+                if (currentComic != null) {
+                    comicId--
+
+                    // TODO: Return once the comic number reaches 1
+
+                    comicList.add(currentComic)
+                    Log.d("XkcdDataSource", "LoadAfter: Current comic ID is $comicId")
+
+                    callback.onResult(comicList, comicId)
+                }
+            }
+
+            override fun onFailure(call: Call<Comic>, t: Throwable) {
+
+            }
+        })
     }
 
     override fun loadBefore(
-        params: LoadParams<String>,
-        callback: LoadCallback<String, Comic>) {
+        params: LoadParams<Int>,
+        callback: LoadCallback<Int, Comic>) {
 
     }
 }

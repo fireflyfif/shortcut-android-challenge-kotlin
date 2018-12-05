@@ -44,14 +44,14 @@ class MainActivity : AppCompatActivity() {
 
     // TODO: This method uses DataSourceFactory straight away
     private fun initializedPagedListBuilder(config: PagedList.Config) :
-            LivePagedListBuilder<String, Comic> {
+            LivePagedListBuilder<Int, Comic> {
 
-        val dataSourceFactory = object : DataSource.Factory<String, Comic>() {
-            override fun create(): DataSource<String, Comic> {
+        val dataSourceFactory = object : DataSource.Factory<Int, Comic>() {
+            override fun create(): DataSource<Int, Comic> {
                 return XkcdDataSource()
             }
         }
-        return LivePagedListBuilder<String, Comic>(dataSourceFactory, config)
+        return LivePagedListBuilder<Int, Comic>(dataSourceFactory, config)
 
     }
 }

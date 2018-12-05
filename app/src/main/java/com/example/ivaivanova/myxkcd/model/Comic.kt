@@ -6,7 +6,7 @@ class Comic(
     @SerializedName("month")
     val month: String,
     @SerializedName("num")
-    val num: Integer,
+    val num: Int,
     @SerializedName("link")
     val link: String,
     @SerializedName("year")
