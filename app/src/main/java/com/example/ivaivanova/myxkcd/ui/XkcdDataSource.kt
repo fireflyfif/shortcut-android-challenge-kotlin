@@ -44,7 +44,7 @@ class XkcdDataSource : PageKeyedDataSource<String, Comic>() {
         callback: LoadCallback<String, Comic>) {
 
         // TODO: Make the second call here by setting the comicId for the key for next page
-        api.getComicById(comicsId = comicId)
+        //api.getComicById(comicsId = comicId)
     }
 
     override fun loadBefore(
