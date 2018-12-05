@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_6dp">6dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="thumbnail_height">200dp</dimen>
+    <dimen name="thumbnail_margin_bottom">32dp</dimen>
+    <dimen name="card_radius">4dp</dimen>
+</resources>

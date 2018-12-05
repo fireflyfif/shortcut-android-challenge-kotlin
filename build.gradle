@@ -27,6 +27,7 @@ task clean(type: Delete) {
 }
 
 ext {
+    supportLibrary = "28.0.0"
     retrofitVersion = "2.3.0"
     okhttpLoggingInterceptorVersion = "3.9.0"
     pagingVersion = "1.0.1"

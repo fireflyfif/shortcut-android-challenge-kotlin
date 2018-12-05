@@ -24,7 +24,7 @@ interface XkcdService {
     Endpoint that returns a requested comics by its id/number
      */
     @GET("{comicsId}/info.0.json")
-    fun getComicById(@Path("comicsId") comicsId: Long)
+    fun getComicById(@Path("comicsId") comicsId: Int?) // TODO: Not sure if this comicId should be Int?
 
 
     companion object {

@@ -23,7 +23,7 @@ class XkcdDataSource : PageKeyedDataSource<String, Comic>() {
             val comicList = mutableListOf<Comic>()
 
             override fun onResponse(call: Call<Comic>?, response: Response<Comic>) {
-                // TODO: Why this variable needs to be save for nulls?
+                // TODO: Why this variable needs to be null safe?
                 val currentComic: Comic? = response.body()
                 comicList.add(currentComic!!)
                 //val comicTitle = currentComic?.safeTitle?.map { //it. }
@@ -43,12 +43,13 @@ class XkcdDataSource : PageKeyedDataSource<String, Comic>() {
         params: LoadParams<String>,
         callback: LoadCallback<String, Comic>) {
 
-        //api.getComicById()
+        // TODO: Make the second call here by setting the comicId for the key for next page
+        api.getComicById(comicsId = comicId)
     }
 
     override fun loadBefore(
         params: LoadParams<String>,
         callback: LoadCallback<String, Comic>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }
