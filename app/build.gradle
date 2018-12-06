@@ -42,9 +42,13 @@ dependencies {
     // picasso
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
-    // lifecycle AAC dependencies
+    // lifecycle AAC
     implementation "android.arch.lifecycle:extensions:$archVersion"
     implementation "android.arch.lifecycle:viewmodel:$archVersion"
+
+    // room
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    kapt "android.arch.persistence.room:compiler:$roomVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "com.android.support.test:runner:$runnerVersion"

@@ -7,6 +7,10 @@ import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.example.ivaivanova.myxkcd.model.Comic
 
+/**
+ * ViewModel for the Comics class
+ * NT: Do not hold an instance of the context here!!!
+ */
 class ComicsViewModel : ViewModel() {
 
     var comicsResult: LiveData<PagedList<Comic>>
@@ -24,6 +28,8 @@ class ComicsViewModel : ViewModel() {
 
     private fun initializedPagedListBuilder(config: PagedList.Config) :
             LivePagedListBuilder<Int, Comic> {
+
+        //val database = ComicsDb.create()
 
         val dataSourceFactory = object : DataSource.Factory<Int, Comic>() {
             override fun create(): DataSource<Int, Comic> {

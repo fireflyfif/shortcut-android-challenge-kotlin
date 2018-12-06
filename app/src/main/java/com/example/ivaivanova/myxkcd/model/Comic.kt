@@ -1,8 +1,10 @@
 package com.example.ivaivanova.myxkcd.model
 
+import android.arch.persistence.room.Entity
 import com.google.gson.annotations.SerializedName
 
-class Comic(
+@Entity
+data class Comic(
     @SerializedName("month")
     val month: String,
     @SerializedName("num")
