@@ -16,7 +16,8 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, Comic>) {
+        callback: LoadInitialCallback<Int, Comic>
+    ) {
 
         api.getCurrentComic().enqueue(object : Callback<Comic> {
 
@@ -44,10 +45,11 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
     override fun loadAfter(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, Comic>) {
+        callback: LoadCallback<Int, Comic>
+    ) {
 
-        // TODO: Make the second call here by setting the comicId for the key for next page
-        api.getComicById(comicId).enqueue(object: Callback<Comic> {
+        // COMPLETED: Make the second call here by setting the comicId for the key for next page
+        api.getComicById(comicId).enqueue(object : Callback<Comic> {
 
             val comicList = mutableListOf<Comic>()
 
@@ -57,7 +59,10 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
                 if (currentComic != null) {
                     comicId--
 
-                    // TODO: Return once the comic number reaches 1
+                    // COMPLETED: Return once the comic number reaches 1
+                    if (comicId == 1) {
+                        return
+                    }
 
                     comicList.add(currentComic)
                     Log.d("XkcdDataSource", "LoadAfter: Current comic ID is $comicId")
@@ -76,5 +81,6 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
         params: LoadParams<Int>,
         callback: LoadCallback<Int, Comic>) {
 
+        // No need to implement this method
     }
 }

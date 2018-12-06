@@ -8,13 +8,14 @@ import android.arch.paging.PagedList
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.StaggeredGridLayoutManager
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter = XkcdAdapter()
+    private val comicsAdapter = XkcdAdapter()
     // TODO: To understand when to use lateinit variable and when not to
     private lateinit var viewModel: ComicsViewModel
 
@@ -32,13 +33,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        comics_rv.layoutManager = LinearLayoutManager(this)
-        comics_rv.adapter = adapter
+        var columnCount: Int = resources.getInteger(R.integer.list_column_count)
+
+        comics_rv.layoutManager = StaggeredGridLayoutManager(columnCount,
+            StaggeredGridLayoutManager.VERTICAL)
+        comics_rv.adapter = comicsAdapter
     }
 
     private fun initializeViewModel() {
         viewModel.comicsResult.observe(this, Observer {
-            adapter.submitList(it)
+            comicsAdapter.submitList(it)
         })
     }
 
@@ -55,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         // TODO: To understand better !!!
         liveData.observe(this, Observer<PagedList<Comic>> {
-            pagedList -> adapter.submitList(pagedList)
+            pagedList -> comicsAdapter.submitList(pagedList)
         })
     }
 

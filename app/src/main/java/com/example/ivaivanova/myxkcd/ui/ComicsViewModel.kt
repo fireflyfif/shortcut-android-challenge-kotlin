@@ -9,12 +9,10 @@ import com.example.ivaivanova.myxkcd.model.Comic
 
 class ComicsViewModel : ViewModel() {
 
-    //private val comicData = MutableLiveData<Comic>()
     var comicsResult: LiveData<PagedList<Comic>>
 
     init {
-
-        // TODO: Move this in the ViewModel later
+        // COMPLETED: Move this in the ViewModel later
         val config = PagedList.Config.Builder()
             .setPageSize(10)
             .setEnablePlaceholders(false)
