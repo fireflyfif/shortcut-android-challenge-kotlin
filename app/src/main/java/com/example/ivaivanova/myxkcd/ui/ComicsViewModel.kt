@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import com.example.ivaivanova.myxkcd.database.ComicsDb
 import com.example.ivaivanova.myxkcd.model.Comic
+import com.example.ivaivanova.myxkcd.utils.Injection
 
 /**
  * ViewModel for the Comics class
@@ -15,6 +17,7 @@ class ComicsViewModel : ViewModel() {
 
     var comicsResult: LiveData<PagedList<Comic>>
 
+
     init {
         // COMPLETED: Move this in the ViewModel later
         val config = PagedList.Config.Builder()
@@ -23,19 +26,21 @@ class ComicsViewModel : ViewModel() {
             .build()
 
         comicsResult = initializedPagedListBuilder(config).build()
-
     }
+
 
     private fun initializedPagedListBuilder(config: PagedList.Config) :
             LivePagedListBuilder<Int, Comic> {
 
-        //val database = ComicsDb.create()
+        // TODO: Can't create the database here, because it requires context!!!
+        //val database = Injection.provideCache()
 
         val dataSourceFactory = object : DataSource.Factory<Int, Comic>() {
             override fun create(): DataSource<Int, Comic> {
                 return XkcdDataSource()
             }
         }
+
         return LivePagedListBuilder<Int, Comic>(dataSourceFactory, config)
     }
 

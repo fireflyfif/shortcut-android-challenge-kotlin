@@ -5,9 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic

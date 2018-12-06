@@ -25,16 +25,17 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
             override fun onResponse(call: Call<Comic>?, response: Response<Comic>) {
                 // TODO: Why this variable needs to be null safe?
-                val currentComic: Comic? = response.body()
-                comicList.add(currentComic!!)
+                if (response.isSuccessful) {
+                    val currentComic: Comic? = response.body()
+                    comicList.add(currentComic!!)
 
-                // Get the recent comic number
-                comicId = currentComic.num
-                comicId -= 1
-                Log.d("XkcdDataSource", "Current comic ID is $comicId")
+                    // Get the recent comic number
+                    comicId = currentComic.num
+                    comicId -= 1
+                    Log.d("XkcdDataSource", "Current comic ID is $comicId")
 
-                callback.onResult(comicList, null, comicId)
-
+                    callback.onResult(comicList, null, comicId)
+                }
             }
 
             override fun onFailure(call: Call<Comic>?, t: Throwable?) {
@@ -54,32 +55,35 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
             val comicList = mutableListOf<Comic>()
 
             override fun onResponse(call: Call<Comic>, response: Response<Comic>) {
-                val currentComic = response.body()
+                if (response.isSuccessful) {
+                    val currentComic = response.body()
 
-                if (currentComic != null) {
-                    comicId--
+                    if (currentComic != null) {
+                        comicId--
 
-                    // COMPLETED: Return once the comic number reaches 1
-                    if (comicId == 1) {
-                        return
+                        // COMPLETED: Return once the comic number reaches 1
+                        if (comicId == 1) {
+                            return
+                        }
+
+                        comicList.add(currentComic)
+                        Log.d("XkcdDataSource", "LoadAfter: Current comic ID is $comicId")
+
+                        callback.onResult(comicList, comicId)
                     }
-
-                    comicList.add(currentComic)
-                    Log.d("XkcdDataSource", "LoadAfter: Current comic ID is $comicId")
-
-                    callback.onResult(comicList, comicId)
                 }
             }
 
             override fun onFailure(call: Call<Comic>, t: Throwable) {
-
+                Log.e("XkcdDataSource", "Failed to fetch data.")
             }
         })
     }
 
     override fun loadBefore(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, Comic>) {
+        callback: LoadCallback<Int, Comic>
+    ) {
 
         // No need to implement this method
     }
