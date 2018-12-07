@@ -1,5 +1,7 @@
 package com.example.ivaivanova.myxkcd.data
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PagedList
 import com.example.ivaivanova.myxkcd.api.XkcdService
 import com.example.ivaivanova.myxkcd.api.makeQuery
@@ -19,17 +21,24 @@ class ComicsBoundaryCallback(
     private val cache: XkcdLocalCache
 ) : PagedList.BoundaryCallback<Comic>() {
 
-    private var lastRequestedComis = 1
+    private var lastRequestedComics = 1
 
     private var isRequestProgress = false
+
+    private val _networkErrors = MutableLiveData<String>()
+
+    // LiveData of network errors.
+    val networkErrors: LiveData<String>
+        get() = _networkErrors
 
     /**
      * Database returned 0 items. We should query the backend for more items.
      */
     override fun onZeroItemsLoaded() {
         super.onZeroItemsLoaded()
-        // fetch data from service
 
+        // fetch data from service
+        requestAndSaveData()
     }
 
     /**
@@ -37,6 +46,7 @@ class ComicsBoundaryCallback(
      */
     override fun onItemAtFrontLoaded(itemAtFront: Comic) {
         super.onItemAtFrontLoaded(itemAtFront)
+        requestAndSaveData()
     }
 
     private fun requestAndSaveData() {
@@ -44,7 +54,19 @@ class ComicsBoundaryCallback(
 
         isRequestProgress = true
 
-        makeQuery(service, lastRequestedComis)
-
+        makeQuery(
+            service,
+            lastRequestedComics,
+            { comics ->
+                cache.insert(comics) {
+                    // TODO: Do not increment the number of comics, but rather decrement
+                    lastRequestedComics++
+                    isRequestProgress = false
+                }
+            },
+            {error ->
+            _networkErrors.postValue(error)
+            isRequestProgress = false
+        })
     }
 }

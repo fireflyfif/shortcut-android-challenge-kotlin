@@ -19,9 +19,9 @@ class XkcdLocalCache(
     /**
      * Insert a list of comics in the database, on a background thread.
      */
-    fun insert(comisList: List<Comic>, insertFinished: () -> Unit) {
+    fun insert(comicsList: List<Comic>, insertFinished: () -> Unit) {
         ioExecutor.execute {
-            comicDao.insertComic(comisList)
+            comicDao.insertComic(comicsList)
             insertFinished()
         }
     }

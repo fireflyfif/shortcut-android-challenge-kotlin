@@ -58,7 +58,7 @@ interface XkcdService {
 fun makeQuery(
     service: XkcdService,
     comicId: Int,
-    onSuccess: (comics: List<Comic>) -> Unit,
+    onSuccess: (comics: List<Comic>) -> Unit, // TODO: Is that a unit-returning function as an argument?
     onError: (error: String) -> Unit
 ) {
     service.getComicById(comicId).enqueue(object : Callback<Comic> {
