@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
+import com.example.ivaivanova.myxkcd.utils.Injection
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         //initializeListTemp()
 
-        viewModel = ViewModelProviders.of(this)
+        // Initialize the View Model
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this))
             .get(ComicsViewModel::class.java)
 
         initAdapter()
@@ -32,15 +34,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        var columnCount: Int = resources.getInteger(R.integer.list_column_count)
+        val columnCount: Int = resources.getInteger(R.integer.list_column_count)
 
         comics_rv.layoutManager = StaggeredGridLayoutManager(columnCount,
             StaggeredGridLayoutManager.VERTICAL)
         comics_rv.adapter = comicsAdapter
     }
 
+//    private fun initializeViewModel() {
+//        viewModel.comicsResult.observe(this, Observer {
+//            comicsAdapter.submitList(it)
+//        })
+//    }
+
+
     private fun initializeViewModel() {
-        viewModel.comicsResult.observe(this, Observer {
+        viewModel.comics.observe(this, Observer {
             comicsAdapter.submitList(it)
         })
     }

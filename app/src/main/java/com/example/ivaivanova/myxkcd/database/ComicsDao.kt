@@ -13,6 +13,6 @@ interface ComicsDao {
     @Insert
     fun insertComic(comics: List<Comic>)
 
-    @Query("SELECT * FROM Comic")
+    @Query("SELECT * FROM comics")
     fun getAllComics(): DataSource.Factory<Int, Comic>
 }

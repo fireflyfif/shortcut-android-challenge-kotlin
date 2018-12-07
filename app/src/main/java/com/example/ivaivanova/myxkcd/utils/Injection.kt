@@ -16,7 +16,7 @@ import java.util.concurrent.Executors
  */
 object Injection {
 
-    fun provideCache(context: Context): XkcdLocalCache {
+    private fun provideCache(context: Context): XkcdLocalCache {
         val database = ComicsDb.getInstance(context)
         return XkcdLocalCache(database.comicsDao(), Executors.newSingleThreadExecutor())
     }
@@ -26,6 +26,6 @@ object Injection {
     }
 
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
-        return ViewModelFactory()
+        return ViewModelFactory(provideXkcdRepository(context))
     }
 }

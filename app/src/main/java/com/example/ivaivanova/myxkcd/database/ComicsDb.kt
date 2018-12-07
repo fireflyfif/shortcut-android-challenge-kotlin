@@ -24,7 +24,8 @@ abstract class ComicsDb : RoomDatabase() {
         // TODO: Do we still need to make this class Singleton
         fun getInstance(context: Context): ComicsDb =
                 INSTANCE ?: synchronized(this) {
-                    INSTANCE ?: create(context)
+                    INSTANCE
+                        ?: create(context).also { INSTANCE = it }
                 }
 
         // TODO: Why do we need the context here?

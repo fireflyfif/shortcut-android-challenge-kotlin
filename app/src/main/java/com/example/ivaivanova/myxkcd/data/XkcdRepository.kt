@@ -19,6 +19,9 @@ class XkcdRepository (
     fun getComics() = cache.allComics()
 
 
+    /**
+     * Function for getting all comics from the cache while using the boundary callback
+     */
     fun getComicsFromBoundaryCallback(): ComicsResult {
         // Get data source factory from the local cache
         val dataSourceFactory = cache.allComics()
@@ -36,7 +39,7 @@ class XkcdRepository (
         return ComicsResult(data, networkErrors)
     }
 
-    companion object {
+    /*companion object {
 
         @Volatile
         private var INSTANCE: XkcdRepository? = null
@@ -45,7 +48,7 @@ class XkcdRepository (
                 INSTANCE ?: synchronized(this) {
                     INSTANCE ?: XkcdRepository(service, cache).also { INSTANCE = it }
                 }
-    }
+    }*/
 
 
 }

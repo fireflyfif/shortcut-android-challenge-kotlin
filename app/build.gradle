@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -45,6 +47,7 @@ dependencies {
     // lifecycle AAC
     implementation "android.arch.lifecycle:extensions:$archVersion"
     implementation "android.arch.lifecycle:viewmodel:$archVersion"
+    kapt "android.arch.lifecycle:compiler:$archVersion"
 
     // room
     implementation "android.arch.persistence.room:runtime:$roomVersion"

@@ -1,24 +1,35 @@
 package com.example.ivaivanova.myxkcd.ui
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import com.example.ivaivanova.myxkcd.data.XkcdRepository
 import com.example.ivaivanova.myxkcd.database.ComicsDb
 import com.example.ivaivanova.myxkcd.model.Comic
+import com.example.ivaivanova.myxkcd.model.ComicsResult
 import com.example.ivaivanova.myxkcd.utils.Injection
 
 /**
  * ViewModel for the Comics class
  * NT: Do not hold an instance of the context here!!!
  */
-class ComicsViewModel : ViewModel() {
+class ComicsViewModel(private val repository: XkcdRepository) : ViewModel() {
 
-    var comicsResult: LiveData<PagedList<Comic>>
+    private val comicsLiveData = MutableLiveData<String>()
+    private val myComicsResult: LiveData<ComicsResult> = Transformations.map(comicsLiveData
+    ) { repository.getComicsFromBoundaryCallback()}
+
+    val comics: LiveData<PagedList<Comic>> = Transformations.switchMap(myComicsResult
+    ) { it -> it.data}
+
+    //var comicsResult: LiveData<PagedList<Comic>>
 
 
-    init {
+    /*init {
         // COMPLETED: Move this in the ViewModel later
         val config = PagedList.Config.Builder()
             .setPageSize(10)
@@ -26,7 +37,7 @@ class ComicsViewModel : ViewModel() {
             .build()
 
         comicsResult = initializedPagedListBuilder(config).build()
-    }
+    }*/
 
 
     private fun initializedPagedListBuilder(config: PagedList.Config) :
