@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val comicsAdapter = XkcdAdapter()
+    private lateinit var comicsAdapter: XkcdAdapter
 
     // TODO: To understand when to use lateinit variable and when not to
     private lateinit var viewModel: ComicsViewModel
@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
     private fun initAdapter() {
         val columnCount: Int = resources.getInteger(R.integer.list_column_count)
 
+        comicsAdapter = XkcdAdapter {
+            viewModel.refreshData()
+        }
+
         comics_rv.layoutManager = StaggeredGridLayoutManager(
             columnCount,
             StaggeredGridLayoutManager.VERTICAL
@@ -46,6 +50,10 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViewModel() {
         viewModel.comicsResult.observe(this, Observer {
             comicsAdapter.submitList(it)
+        })
+
+        viewModel.networkState?.observe(this, Observer {
+            comicsAdapter.setNetworkState(it!!)
         })
     }
 
