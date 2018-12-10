@@ -9,6 +9,7 @@ import java.util.concurrent.Executor
  * triggered on the correct executor.
  *
  * Source: https://codelabs.developers.google.com/codelabs/android-paging/index.html?index=..%2F..index#0
+ * TODO: Not in use for now. Remove later!
  */
 class XkcdLocalCache(
     private val comicDao: ComicsDao,
@@ -18,6 +19,7 @@ class XkcdLocalCache(
     // TODO: What do we do here with the second argument? Is it a function?
     /**
      * Insert a list of comics in the database, on a background thread.
+     * TODO: Remove if not used!
      */
     fun insert(comicsList: List<Comic>, insertFinished: () -> Unit) {
         ioExecutor.execute {
@@ -30,6 +32,7 @@ class XkcdLocalCache(
      * Get a list of all comics from the Dao
      */
     fun allComics() : DataSource.Factory<Int, Comic> {
+
         return comicDao.getAllComics()
     }
 

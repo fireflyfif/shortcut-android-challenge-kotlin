@@ -23,11 +23,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //initializeListTemp()
-
         // Initialize the View Model
-        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this))
-            .get(ComicsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ComicsViewModel::class.java)
 
         initAdapter()
         initializeViewModel()
@@ -41,35 +38,13 @@ class MainActivity : AppCompatActivity() {
         comics_rv.adapter = comicsAdapter
     }
 
-//    private fun initializeViewModel() {
-//        viewModel.comicsResult.observe(this, Observer {
-//            comicsAdapter.submitList(it)
-//        })
-//    }
-
 
     private fun initializeViewModel() {
-        viewModel.comics.observe(this, Observer {
+        viewModel.comicsResult.observe(this, Observer {
             comicsAdapter.submitList(it)
         })
     }
 
-
-    private fun initializeListTemp() {
-
-        // TODO: Move this in the ViewModel later
-        val config = PagedList.Config.Builder()
-            .setPageSize(10)
-            .setEnablePlaceholders(false)
-            .build()
-
-        val liveData = initializedPagedListBuilder(config).build()
-
-        // TODO: To understand better !!!
-        liveData.observe(this, Observer<PagedList<Comic>> {
-            pagedList -> comicsAdapter.submitList(pagedList)
-        })
-    }
 
     // TODO: This method uses DataSourceFactory straight away
     private fun initializedPagedListBuilder(config: PagedList.Config) :

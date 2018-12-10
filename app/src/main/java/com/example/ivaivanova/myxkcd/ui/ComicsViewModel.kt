@@ -17,19 +17,19 @@ import com.example.ivaivanova.myxkcd.utils.Injection
  * ViewModel for the Comics class
  * NT: Do not hold an instance of the context here!!!
  */
-class ComicsViewModel(private val repository: XkcdRepository) : ViewModel() {
+class ComicsViewModel: ViewModel() {
 
-    private val comicsLiveData = MutableLiveData<String>()
-    private val myComicsResult: LiveData<ComicsResult> = Transformations.map(comicsLiveData
-    ) { repository.getComicsFromBoundaryCallback()}
+//    private val comicsLiveData = MutableLiveData<String>()
+//    private val myComicsResult: LiveData<ComicsResult> = Transformations.map(comicsLiveData
+//    ) { repository.getComicsFromBoundaryCallback()}
+//
+//    val comics: LiveData<PagedList<Comic>> = Transformations.switchMap(myComicsResult
+//    ) { it -> it.data}
 
-    val comics: LiveData<PagedList<Comic>> = Transformations.switchMap(myComicsResult
-    ) { it -> it.data}
-
-    //var comicsResult: LiveData<PagedList<Comic>>
+    var comicsResult: LiveData<PagedList<Comic>>
 
 
-    /*init {
+    init {
         // COMPLETED: Move this in the ViewModel later
         val config = PagedList.Config.Builder()
             .setPageSize(10)
@@ -37,14 +37,11 @@ class ComicsViewModel(private val repository: XkcdRepository) : ViewModel() {
             .build()
 
         comicsResult = initializedPagedListBuilder(config).build()
-    }*/
+    }
 
 
     private fun initializedPagedListBuilder(config: PagedList.Config) :
             LivePagedListBuilder<Int, Comic> {
-
-        // TODO: Can't create the database here, because it requires context!!!
-        //val database = Injection.provideCache()
 
         val dataSourceFactory = object : DataSource.Factory<Int, Comic>() {
             override fun create(): DataSource<Int, Comic> {
@@ -55,5 +52,4 @@ class ComicsViewModel(private val repository: XkcdRepository) : ViewModel() {
         return LivePagedListBuilder<Int, Comic>(dataSourceFactory, config)
     }
 
-    //fun currentComic: LiveData<PagedList<Comic>> {return comicsResult}
 }
