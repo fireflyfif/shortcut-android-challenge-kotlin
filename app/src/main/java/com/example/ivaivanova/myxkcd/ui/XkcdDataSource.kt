@@ -89,7 +89,6 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
         params: LoadParams<Int>,
         callback: LoadCallback<Int, Comic>
     ) {
-
         // No need to implement this method
     }
 }

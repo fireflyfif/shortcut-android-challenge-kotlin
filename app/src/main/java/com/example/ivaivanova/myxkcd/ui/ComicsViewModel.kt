@@ -3,6 +3,8 @@ package com.example.ivaivanova.myxkcd.ui
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
+import android.arch.lifecycle.Transformations.map
+import android.arch.lifecycle.Transformations.switchMap
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
@@ -18,13 +20,6 @@ import com.example.ivaivanova.myxkcd.utils.Injection
  * NT: Do not hold an instance of the context here!!!
  */
 class ComicsViewModel: ViewModel() {
-
-//    private val comicsLiveData = MutableLiveData<String>()
-//    private val myComicsResult: LiveData<ComicsResult> = Transformations.map(comicsLiveData
-//    ) { repository.getComicsFromBoundaryCallback()}
-//
-//    val comics: LiveData<PagedList<Comic>> = Transformations.switchMap(myComicsResult
-//    ) { it -> it.data}
 
     var comicsResult: LiveData<PagedList<Comic>>
 
@@ -52,4 +47,12 @@ class ComicsViewModel: ViewModel() {
         return LivePagedListBuilder<Int, Comic>(dataSourceFactory, config)
     }
 
+    fun refreshData() {
+        val config = PagedList.Config.Builder()
+            .setPageSize(10)
+            .setEnablePlaceholders(false)
+            .build()
+
+        comicsResult = initializedPagedListBuilder(config).build()
+    }
 }
