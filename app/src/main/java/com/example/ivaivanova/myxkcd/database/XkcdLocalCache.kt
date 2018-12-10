@@ -23,7 +23,7 @@ class XkcdLocalCache(
      */
     fun insert(comicsList: List<Comic>, insertFinished: () -> Unit) {
         ioExecutor.execute {
-            comicDao.insertComic(comicsList)
+            //comicDao.insertComic(comicsList)
             insertFinished()
         }
     }
