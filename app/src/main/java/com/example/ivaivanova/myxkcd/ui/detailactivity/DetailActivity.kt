@@ -9,6 +9,10 @@ import com.example.ivaivanova.myxkcd.model.Comic
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 
+/**
+ * Method that handles the click on an item
+ * source: https://medium.com/@passsy/starting-activities-with-kotlin-my-journey-8b7307f1e460
+ */
 fun Context.DetailComicIntent(currentComic: Comic?): Intent {
     return Intent(this, DetailActivity::class.java).apply {
         putExtra(INTENT_COMIC_PARCEL, currentComic)
@@ -22,6 +26,9 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        setSupportActionBar(toolbar_detail)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val currentComic = intent.getParcelableExtra<Comic>(INTENT_COMIC_PARCEL)
         setupUi(currentComic)

@@ -36,7 +36,6 @@
                         android:layout_height="100dp"
                         android:background="@drawable/background_protection"/>
 
-
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
