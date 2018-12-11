@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupUi(currentComic: Comic) {
-        //var comicTitle = collapsing_toolbar.title.isNullOrEmpty()
+        // Set the title of the collapsing toolbar to the title of the current comic
         collapsing_toolbar.setExpandedTitleColor(resources.getColor(R.color.colorPrimary))
         collapsing_toolbar.title = currentComic.title
         comic_detail_month.text = currentComic.month

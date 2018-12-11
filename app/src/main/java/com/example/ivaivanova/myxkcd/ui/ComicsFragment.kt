@@ -1,0 +1,168 @@
+package com.example.ivaivanova.myxkcd.ui
+
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.net.Uri
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.widget.StaggeredGridLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.example.ivaivanova.myxkcd.R
+import com.example.ivaivanova.myxkcd.model.Comic
+import kotlinx.android.synthetic.main.fragment_comics.*
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [Fragment] subclass.
+ * Activities that contain this fragment must implement the
+ * [ComicsFragment.OnFragmentInteractionListener] interface
+ * to handle interaction events.
+ * Use the [ComicsFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ *
+ */
+class ComicsFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+    private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var comicsAdapter: XkcdAdapter
+
+    // TODO: To understand when to use lateinit variable and when not to
+    private lateinit var viewModel: ComicsViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        // Initialize the View Model
+        viewModel = ViewModelProviders.of(this).get(ComicsViewModel::class.java)
+
+        initAdapter()
+        initializeViewModel()
+        initSwipeToRefresh()
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_comics, container, false)
+    }
+
+    private fun initAdapter() {
+        val columnCount: Int = resources.getInteger(R.integer.list_column_count)
+
+        comicsAdapter = XkcdAdapter(
+            { viewModel.refreshData() },
+            { comicItem: Comic? -> comicItemClicked(comicItem) })
+
+        comics_rv.layoutManager = StaggeredGridLayoutManager(
+            columnCount,
+            StaggeredGridLayoutManager.VERTICAL
+        )
+        comics_rv.adapter = comicsAdapter
+    }
+
+
+    private fun initializeViewModel() {
+        viewModel.comicsResult.observe(this, Observer {
+            comicsAdapter.submitList(it)
+        })
+
+        viewModel.networkState.observe(this, Observer {
+            comicsAdapter.setNetworkState(it!!)
+        })
+    }
+
+    // TODO: Check why is this method not working?
+    private fun initSwipeToRefresh() {
+//        initializeViewModel()
+
+        swipe_refresh.setOnRefreshListener {
+            viewModel.refreshData()
+
+            // Hide the refresh icon
+            swipe_refresh.isRefreshing = false
+        }
+
+        initAdapter()
+    }
+
+    /**
+     * Method that handles the click on an item
+     * source: https://medium.com/@passsy/starting-activities-with-kotlin-my-journey-8b7307f1e460
+     */
+    private fun comicItemClicked(currentComic: Comic?) {
+
+        //activity!!.startActivity(DetailComicIntent(currentComic))
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    fun onButtonPressed(uri: Uri) {
+        listener?.onFragmentInteraction(uri)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     *
+     *
+     * See the Android Training lesson [Communicating with Other Fragments]
+     * (http://developer.android.com/training/basics/fragments/communicating.html)
+     * for more information.
+     */
+    interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        fun onFragmentInteraction(uri: Uri)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment ComicsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance() =
+            ComicsFragment().apply {
+                arguments = Bundle().apply {
+                    //putString(ARG_PARAM1, param1)
+                    //putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}

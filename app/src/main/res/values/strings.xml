@@ -3,4 +3,11 @@
     <string name="slash_sign">/</string>
     <string name="retry">Retry</string>
     <string name="fab_contentDecription">Add to favorites button</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_message">Error message</string>
+    <string name="comics">Comics</string>
+    <string name="search">Search</string>
+    <string name="favs">Favs</string>
 </resources>
