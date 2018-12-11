@@ -8,6 +8,7 @@ import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.widget.Toast
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.utils.Injection
@@ -35,9 +36,9 @@ class MainActivity : AppCompatActivity() {
     private fun initAdapter() {
         val columnCount: Int = resources.getInteger(R.integer.list_column_count)
 
-        comicsAdapter = XkcdAdapter {
-            viewModel.refreshData()
-        }
+        comicsAdapter = XkcdAdapter(
+            { viewModel.refreshData() },
+            { comicItem: Comic? -> comicItemClicked(comicItem) })
 
         comics_rv.layoutManager = StaggeredGridLayoutManager(
             columnCount,
@@ -52,13 +53,14 @@ class MainActivity : AppCompatActivity() {
             comicsAdapter.submitList(it)
         })
 
-        viewModel.networkState?.observe(this, Observer {
+        viewModel.networkState.observe(this, Observer {
             comicsAdapter.setNetworkState(it!!)
         })
     }
 
+    // TODO: Check why is this method not working?
     private fun initSwipeToRefresh() {
-        initializeViewModel()
+//        initializeViewModel()
 
         swipe_refresh.setOnRefreshListener {
             viewModel.refreshData()
@@ -68,5 +70,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         initAdapter()
+    }
+
+    private fun comicItemClicked(currentComic: Comic?) {
+        Toast.makeText(this, "Clicked ${currentComic?.num}", Toast.LENGTH_SHORT).show()
     }
 }

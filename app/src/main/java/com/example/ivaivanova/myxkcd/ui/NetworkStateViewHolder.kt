@@ -26,9 +26,18 @@ class NetworkStateViewHolder(
     private val retryButton: Button = view.findViewById(R.id.retry_button)
     private val errorMessage: TextView = view.findViewById(R.id.error_message)
 
+    init {
+        retryButton.setOnClickListener { retryCallback }
+    }
+
     fun bindTo(networkState: NetworkState?) {
-        progressBar.visibility = visibility(networkState?.status == Status.RUNNING)
-        retryButton.visibility = visibility(networkState?.status == Status.FAILED)
+        //progressBar.visibility = visibility(networkState?.status == Status.RUNNING)
+        //retryButton.visibility = visibility(networkState?.status == Status.FAILED)
+
+        // TODO: This visibility state is temporary. Switch to the above code after this is fixed
+        progressBar.visibility = View.VISIBLE
+        retryButton.visibility = View.VISIBLE
+
 
         errorMessage.visibility = visibility(networkState?.msg != null)
         errorMessage.text = networkState?.msg

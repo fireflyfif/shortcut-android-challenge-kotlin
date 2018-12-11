@@ -20,8 +20,8 @@ class ComicsViewModel: ViewModel() {
 
     var comicsResult: LiveData<PagedList<Comic>>
 
-    var networkState: LiveData<NetworkState>? = null
-    var loadingState: LiveData<NetworkState>? = null
+    lateinit var networkState: LiveData<NetworkState>
+    lateinit var loadingState: LiveData<NetworkState>
 
 
     init {

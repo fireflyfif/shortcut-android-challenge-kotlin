@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.squareup.picasso.Picasso
@@ -21,9 +22,12 @@ class XkcdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val comicNumber: TextView = view.findViewById(R.id.comic_number)
     private val comicYear: TextView = view.findViewById(R.id.comic_year)
     private val comicImage: ImageView = view.findViewById(R.id.comic_image)
+    private var comic: Comic? = null
 
 
-    fun bind(comics: Comic?) {
+    fun bind(comics: Comic?, listener: (Comic?) -> Unit) = with(itemView) {
+        comic = comics
+
         if (comics != null) {
             // Set the details on the current comic
             comicTitle.text = comics.title
@@ -34,10 +38,12 @@ class XkcdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             // Set the image with Picasso
             Picasso.get().load(comics.image).into(comicImage)
         }
+
+        setOnClickListener { listener(comics) }
     }
 
     companion object {
-        fun create(parent: ViewGroup) : XkcdViewHolder {
+        fun create(parent: ViewGroup): XkcdViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.comic_item, parent, false)
             return XkcdViewHolder(view)

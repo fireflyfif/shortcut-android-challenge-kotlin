@@ -2,8 +2,11 @@ package com.example.ivaivanova.myxkcd.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "comics")
 data class Comic(
     @PrimaryKey(autoGenerate = true)
@@ -31,4 +34,4 @@ data class Comic(
     val title: String,
     @SerializedName("day")
     val day: String
-)
+) : Parcelable
