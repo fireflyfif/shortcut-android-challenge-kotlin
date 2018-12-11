@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailActivity
+import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
 import com.example.ivaivanova.myxkcd.utils.Injection
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -73,9 +74,13 @@ class MainActivity : AppCompatActivity() {
         initAdapter()
     }
 
+    /**
+     * Method that handles the click on an item
+     * source: https://medium.com/@passsy/starting-activities-with-kotlin-my-journey-8b7307f1e460
+     */
     private fun comicItemClicked(currentComic: Comic?) {
         Toast.makeText(this, "Clicked ${currentComic?.num}", Toast.LENGTH_SHORT).show()
-        val intent = DetailActivity.newIntent(this, currentComic)
-        startActivity(intent)
+        //val intent = DetailActivity.newIntent(this, currentComic)
+        startActivity(DetailComicIntent(currentComic))
     }
 }
