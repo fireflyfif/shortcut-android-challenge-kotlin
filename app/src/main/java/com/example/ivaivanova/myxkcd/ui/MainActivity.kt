@@ -11,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.widget.Toast
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
+import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailActivity
 import com.example.ivaivanova.myxkcd.utils.Injection
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -74,5 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun comicItemClicked(currentComic: Comic?) {
         Toast.makeText(this, "Clicked ${currentComic?.num}", Toast.LENGTH_SHORT).show()
+        val intent = DetailActivity.newIntent(this, currentComic)
+        startActivity(intent)
     }
 }

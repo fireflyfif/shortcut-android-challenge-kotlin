@@ -2,4 +2,5 @@
     <string name="app_name">My XKCD</string>
     <string name="slash_sign">/</string>
     <string name="retry">Retry</string>
+    <string name="fab_contentDecription">Add to favorites button</string>
 </resources>

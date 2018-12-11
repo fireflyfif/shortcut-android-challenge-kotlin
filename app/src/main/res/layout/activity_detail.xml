@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/coordinator_detail_comic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.detailactivity.DetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:collapsedTitleGravity="start"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true">
+
+                <TextView
+                        android:id="@+id/comic_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:padding="@dimen/padding_6dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textStyle="bold"
+                        app:fontFamily="casual"
+                        tools:text="Comic Title"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginRight="16dp"/>
+
+            </FrameLayout>
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:actionBarSize"
+                    android:background="@null"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/comic_detail_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:padding="@dimen/padding_6dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textStyle="bold"
+                    app:fontFamily="casual"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Comic Title" android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="16dp"/>
+
+            <View
+                    android:id="@+id/accent_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_title"/>
+
+            <TextView
+                    android:id="@+id/comic_detail_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_number_sign"
+                    android:drawableLeft="@drawable/ic_number_sign"
+                    android:drawablePadding="@dimen/padding_6dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/padding_horizontal"
+                    android:paddingLeft="@dimen/padding_horizontal"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="@dimen/padding_6dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual"
+                    app:layout_constraintBottom_toBottomOf="@+id/accent_bg"
+                    app:layout_constraintEnd_toStartOf="@+id/comic_detail_month"
+                    app:layout_constraintStart_toStartOf="@+id/accent_bg"
+                    app:layout_constraintTop_toTopOf="@+id/accent_bg"
+                    tools:text="Num"/>
+
+            <TextView
+                    android:id="@+id/comic_detail_month"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawablePadding="@dimen/padding_6dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/padding_6dp"
+                    android:paddingLeft="@dimen/padding_6dp"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:paddingEnd="@dimen/padding_6dp"
+                    android:paddingRight="@dimen/padding_6dp"
+                    android:paddingBottom="@dimen/padding_6dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
+                    app:fontFamily="casual"
+                    app:layout_constraintBottom_toBottomOf="@+id/comic_detail_number"
+                    app:layout_constraintEnd_toStartOf="@+id/slash"
+                    app:layout_constraintTop_toTopOf="@+id/comic_detail_number"
+                    tools:text="Month"/>
+
+            <TextView
+                    android:id="@+id/slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:paddingBottom="@dimen/padding_6dp"
+                    android:text="@string/slash_sign"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
+                    app:fontFamily="casual"
+                    app:layout_constraintBottom_toBottomOf="@+id/comic_detail_month"
+                    app:layout_constraintEnd_toStartOf="@+id/comic_detail_year"
+                    app:layout_constraintTop_toTopOf="@+id/comic_detail_month"/>
+
+            <TextView
+                    android:id="@+id/comic_detail_year"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:paddingEnd="@dimen/padding_horizontal"
+                    android:paddingRight="@dimen/padding_horizontal"
+                    android:paddingBottom="@dimen/padding_6dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual"
+                    app:layout_constraintBottom_toBottomOf="@+id/comic_detail_month"
+                    app:layout_constraintEnd_toEndOf="@+id/accent_bg"
+                    app:layout_constraintTop_toTopOf="@+id/comic_detail_month"
+                    tools:text="Year"/>
+
+            <ImageView
+                    android:id="@+id/comic_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_image_height"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/accent_bg"
+                    app:srcCompat="@drawable/ic_launcher_background"/>
+
+            <View
+                    android:id="@+id/fab_anchor"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorBgDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_image"/>
+
+            <TextView
+                    android:id="@+id/comic_detail_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_horizontal"
+                    android:layout_marginLeft="@dimen/margin_horizontal"
+                    android:layout_marginTop="@dimen/margin_vertical_8dp"
+                    android:layout_marginEnd="@dimen/margin_horizontal"
+                    android:layout_marginRight="@dimen/margin_horizontal"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="casual"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_alt"
+                    tools:text="Description here of the comic"/>
+
+            <TextView
+                    android:id="@+id/comic_detail_alt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_horizontal"
+                    android:layout_marginLeft="@dimen/margin_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="@dimen/margin_horizontal"
+                    android:layout_marginRight="@dimen/margin_horizontal"
+                    android:fontFamily="casual"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_anchor"
+                    tools:text="Alt here of the comic"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fav_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:contentDescription="@string/fab_contentDecription"
+            android:tint="@color/colorPrimary"
+            app:fabSize="normal"
+            app:layout_anchor="@id/appbar"
+            app:layout_anchorGravity="bottom|right"
+            app:srcCompat="@drawable/ic_star_border_black_24dp"/>
+
+</android.support.design.widget.CoordinatorLayout>
