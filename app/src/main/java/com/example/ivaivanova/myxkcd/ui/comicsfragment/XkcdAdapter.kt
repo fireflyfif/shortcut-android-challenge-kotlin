@@ -1,4 +1,4 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.widget.RecyclerView
@@ -18,9 +18,14 @@ class XkcdAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.comic_item -> XkcdViewHolder.create(parent)
+            R.layout.comic_item -> XkcdViewHolder.create(
+                parent
+            )
             // TODO: Check why is it not switching to this layout when there is no net
-            R.layout.network_state_item -> NetworkStateViewHolder.create(parent, retryCallback)
+            R.layout.network_state_item -> NetworkStateViewHolder.create(
+                parent,
+                retryCallback
+            )
             else -> throw IllegalArgumentException("Unknown view type $viewType")
         }
     }

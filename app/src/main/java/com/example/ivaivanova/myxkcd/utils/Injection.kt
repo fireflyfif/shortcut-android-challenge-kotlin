@@ -2,11 +2,10 @@ package com.example.ivaivanova.myxkcd.utils
 
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
-import com.example.ivaivanova.myxkcd.api.XkcdService
 import com.example.ivaivanova.myxkcd.data.XkcdRepository
 import com.example.ivaivanova.myxkcd.database.ComicsDb
-import com.example.ivaivanova.myxkcd.database.XkcdLocalCache
-import com.example.ivaivanova.myxkcd.ui.ViewModelFactory
+import com.example.ivaivanova.myxkcd.ui.favfragment.FavComicsViewModelFactory
+import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 /**
@@ -19,13 +18,14 @@ object Injection {
     /*private fun provideCache(context: Context): XkcdLocalCache {
         val database = ComicsDb.getInstance(context)
         return XkcdLocalCache(database.comicsDao(), Executors.newSingleThreadExecutor())
-    }
+    }*/
 
     private fun provideXkcdRepository(context: Context): XkcdRepository {
-        return XkcdRepository(XkcdService.create(), provideCache(context))
+        val database = ComicsDb.getInstance(context)
+        return XkcdRepository(database.comicsDao(), Executors.newSingleThreadExecutor())
     }
 
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
-        return ViewModelFactory(provideXkcdRepository(context))
-    }*/
+        return FavComicsViewModelFactory(provideXkcdRepository(context))
+    }
 }

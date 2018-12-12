@@ -1,9 +1,8 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -15,14 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
-import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailActivity
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
-import kotlinx.android.synthetic.main.fragment_comics.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -139,6 +132,7 @@ class ComicsFragment : Fragment() {
          *
          * @return A new instance of fragment ComicsFragment.
          */
-        fun newInstance(): ComicsFragment = ComicsFragment()
+        fun newInstance(): ComicsFragment =
+            ComicsFragment()
     }
 }

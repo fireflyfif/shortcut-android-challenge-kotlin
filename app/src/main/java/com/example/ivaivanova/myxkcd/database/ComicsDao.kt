@@ -15,4 +15,7 @@ interface ComicsDao {
 
     @Query("SELECT * FROM comics")
     fun getAllComics(): DataSource.Factory<Int, Comic>
+
+    @Query("DELETE FROM comics WHERE num = :comicNumber")
+    fun deleteComic(comicNumber: String)
 }

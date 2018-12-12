@@ -1,4 +1,4 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import com.example.ivaivanova.myxkcd.model.Comic
 import android.arch.paging.PageKeyedDataSource

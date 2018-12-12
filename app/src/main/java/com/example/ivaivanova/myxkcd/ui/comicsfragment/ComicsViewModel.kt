@@ -1,4 +1,4 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ import com.example.ivaivanova.myxkcd.utils.NetworkState
  */
 class ComicsViewModel: ViewModel() {
 
-    val comicName: MutableLiveData<String> = MutableLiveData()
+    private val comicName: MutableLiveData<String> = MutableLiveData()
 
     var comicsResult: LiveData<PagedList<Comic>>
 
@@ -25,7 +25,8 @@ class ComicsViewModel: ViewModel() {
 
 
     init {
-        // TODO: Question: I have no idea what does switchMap!!!
+        // TODO: Question: I have no idea what does switchMap do!!!
+        // TODO: Q -
         networkState = switchMap(comicName) { networkState }
         loadingState = switchMap(comicName) { loadingState }
 

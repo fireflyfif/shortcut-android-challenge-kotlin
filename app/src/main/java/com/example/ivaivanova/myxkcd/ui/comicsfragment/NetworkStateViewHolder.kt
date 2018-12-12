@@ -1,4 +1,4 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.utils.NetworkState
-import com.example.ivaivanova.myxkcd.utils.Status
 
 /**
  * A View Holder that can display a loading or click action.
@@ -39,7 +38,8 @@ class NetworkStateViewHolder(
         retryButton.visibility = View.VISIBLE
 
 
-        errorMessage.visibility = visibility(networkState?.msg != null)
+        errorMessage.visibility =
+                visibility(networkState?.msg != null)
         errorMessage.text = networkState?.msg
     }
 

@@ -1,4 +1,4 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

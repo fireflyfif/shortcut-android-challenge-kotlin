@@ -1,4 +1,4 @@
-package com.example.ivaivanova.myxkcd.ui
+package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.support.v7.util.DiffUtil
 import com.example.ivaivanova.myxkcd.model.Comic
