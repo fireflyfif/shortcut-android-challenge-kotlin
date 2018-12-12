@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.example.ivaivanova.myxkcd.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,9 +43,12 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
+        Log.d("MainActivity", "onCreate called")
         // Open the first fragment when launching.
         // TODO: Set a default fragment to be shown when launching!
-        openFragment(ComicsFragment.newInstance())
+        bottom_navigation.selectedItemId = R.id.navigation_comics
+        bottom_navigation.isSelected
+        //openFragment(ComicsFragment.newInstance())
 
         initBottomNavigation()
     }

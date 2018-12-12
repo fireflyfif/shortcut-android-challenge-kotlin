@@ -6,11 +6,10 @@
           android:title="@string/comics"/>
 
     <item android:id="@+id/navigation_search"
-          android:icon="@drawable/ic_number_sign"
+          android:icon="@drawable/ic_search_black_24dp"
           android:title="@string/search"/>
 
     <item android:id="@+id/navigation_favorites"
-          android:icon="@drawable/ic_number_sign"
+          android:icon="@drawable/ic_star_border_black_24dp"
           android:title="@string/favs"/>
-
 </menu>
