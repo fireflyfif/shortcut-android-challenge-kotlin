@@ -18,9 +18,15 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_search -> {
+                toolbar.title = "Search"
+                val comicsFragment = ComicsFragment.newInstance()
+                openFragment(comicsFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_favorites -> {
+                toolbar.title = "Favs"
+                val comicsFragment = ComicsFragment.newInstance()
+                openFragment(comicsFragment)
                 return@OnNavigationItemSelectedListener true
             }
         }
