@@ -9,11 +9,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
+import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailActivity
+import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
 import kotlinx.android.synthetic.main.fragment_comics.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,16 +43,13 @@ class ComicsFragment : Fragment() {
     private lateinit var comicsRv: RecyclerView
     private lateinit var swipeToRefresh: SwipeRefreshLayout
 
-    // TODO: To understand when to use lateinit variable and when not to
+    // TODO: Question - To understand when to use lateinit variable and when not to
     private lateinit var viewModel: ComicsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-        }
+        Log.d("ComicsFragment", "onCreate called.")
     }
 
     override fun onCreateView(
@@ -57,6 +57,9 @@ class ComicsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        Log.d("ComicsFragment", "onCreateView called.")
+
+        // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_comics, container, false)
 
         // TODO: Question - Why the Kotlin extensions are not working within a Fragment?
@@ -64,6 +67,7 @@ class ComicsFragment : Fragment() {
         comicsRv = rootView.findViewById(R.id.comics_rv) as RecyclerView
 
         swipeToRefresh = rootView.findViewById(R.id.swipe_refresh) as SwipeRefreshLayout
+
         // Initialize the View Model
         viewModel = ViewModelProviders.of(this).get(ComicsViewModel::class.java)
 
@@ -71,7 +75,6 @@ class ComicsFragment : Fragment() {
         initializeViewModel()
         initSwipeToRefresh()
 
-        // Inflate the layout for this fragment
         return rootView
     }
 
@@ -103,7 +106,6 @@ class ComicsFragment : Fragment() {
 
     // TODO: Check why is this method not working?
     private fun initSwipeToRefresh() {
-//        initializeViewModel()
 
         swipeToRefresh.setOnRefreshListener {
             viewModel.refreshData()
@@ -121,7 +123,7 @@ class ComicsFragment : Fragment() {
      */
     private fun comicItemClicked(currentComic: Comic?) {
 
-        //activity!!.startActivity(DetailComicIntent(currentComic))
+        startActivity(activity?.DetailComicIntent(currentComic))
     }
 
 
@@ -160,18 +162,8 @@ class ComicsFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
          * @return A new instance of fragment ComicsFragment.
          */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() =
-            ComicsFragment().apply {
-                arguments = Bundle().apply {
-                    //putString(ARG_PARAM1, param1)
-                    //putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(): ComicsFragment = ComicsFragment()
     }
 }

@@ -1,5 +1,7 @@
 package com.example.ivaivanova.myxkcd.ui
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         false
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +42,16 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
+        // Open the first fragment when launching.
+        // TODO: Set a default fragment to be shown when launching!
+        openFragment(ComicsFragment.newInstance())
+
         initBottomNavigation()
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun initBottomNavigation() {
+        bottom_navigation.display
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationListener)
     }
 
