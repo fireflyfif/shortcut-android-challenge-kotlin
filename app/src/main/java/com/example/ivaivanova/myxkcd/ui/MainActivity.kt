@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.ui.comicsfragment.ComicsFragment
+import com.example.ivaivanova.myxkcd.ui.favfragment.FavFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_favorites -> {
                 toolbar.title = "Favs"
-                val comicsFragment = ComicsFragment.newInstance()
+                val comicsFragment = FavFragment.newInstance()
                 openFragment(comicsFragment)
                 return@OnNavigationItemSelectedListener true
             }

@@ -2,8 +2,8 @@ package com.example.ivaivanova.myxkcd.ui.detailactivity
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.squareup.picasso.Picasso
@@ -32,6 +32,18 @@ class DetailActivity : AppCompatActivity() {
 
         val currentComic = intent.getParcelableExtra<Comic>(INTENT_COMIC_PARCEL)
         setupUi(currentComic)
+
+        fav_button.setOnClickListener {
+            addComicToFavs()
+        }
+    }
+
+
+    private fun addComicToFavs() {
+
+        //var favComics: Comic() =
+        // TODO: Q- How to get the value of comics for the scope of this method?
+        //viewModel.insertInDb(favComic = Comic())
     }
 
     private fun setupUi(currentComic: Comic) {

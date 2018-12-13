@@ -29,10 +29,13 @@ class FavComicsViewModel(private val repository: XkcdRepository) : ViewModel() {
         return favComicsResult
     }
 
+    // TODO: Move to the DetailViewModel
     fun insertInDb(favComic: Comic) {
+
         repository.insertItem(favComic)
     }
 
+    // TODO: Move to the DetailViewModel
     fun deleteItemFromDb(comicNum: String) {
         repository.deleteItem(comicNum)
     }

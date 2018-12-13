@@ -18,7 +18,7 @@ class XkcdAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.comic_item -> XkcdViewHolder.create(
+            R.layout.comic_item -> ComicsViewHolder.create(
                 parent
             )
             // TODO: Check why is it not switching to this layout when there is no net
@@ -34,7 +34,7 @@ class XkcdAdapter(
 
         // Bind the views within the item according to the layout
         when (getItemViewType(position)) {
-            R.layout.comic_item -> (holder as XkcdViewHolder).bind(getItem(position), listener)
+            R.layout.comic_item -> (holder as ComicsViewHolder).bind(getItem(position), listener)
             R.layout.network_state_item -> (holder as NetworkStateViewHolder).bindTo(networkState)
         }
     }

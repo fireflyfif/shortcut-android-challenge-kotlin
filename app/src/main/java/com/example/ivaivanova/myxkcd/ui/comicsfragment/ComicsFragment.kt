@@ -70,6 +70,8 @@ class ComicsFragment : Fragment() {
     private fun initAdapter() {
         val columnCount: Int = resources.getInteger(R.integer.list_column_count)
 
+        // TODO: Q- Do we still need to initialize the Adapter class if there is no functions in the arguments?
+        // Initialize the Adapter
         comicsAdapter = XkcdAdapter(
             { viewModel.refreshData() },
             { comicItem: Comic? -> comicItemClicked(comicItem) })

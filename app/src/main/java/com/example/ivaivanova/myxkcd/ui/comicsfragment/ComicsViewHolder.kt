@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 /**
  * ViewHolder for the Comics RecyclerView list item
  */
-class XkcdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val comicTitle: TextView = view.findViewById(R.id.comic_title)
     private val comicMonth: TextView = view.findViewById(R.id.comic_month)
@@ -41,10 +41,10 @@ class XkcdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        fun create(parent: ViewGroup): XkcdViewHolder {
+        fun create(parent: ViewGroup): ComicsViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.comic_item, parent, false)
-            return XkcdViewHolder(view)
+            return ComicsViewHolder(view)
         }
     }
 }
