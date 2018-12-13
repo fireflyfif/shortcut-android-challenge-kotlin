@@ -1,17 +1,24 @@
 package com.example.ivaivanova.myxkcd.model
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
+import android.support.annotation.NonNull
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "comics")
+@Entity(
+    tableName = "comics",
+    indices = [Index(value = ["num"], unique = true)]
+)
 data class Comic(
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id: Int,
+    @ColumnInfo
     @SerializedName("month")
     val month: String,
     @SerializedName("num")
