@@ -18,7 +18,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="150dp"
                 app:collapsedTitleGravity="start"
                 android:fitsSystemWindows="true"
                 app:expandedTitleGravity="center_horizontal"
@@ -33,7 +33,7 @@
 
                 <View
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="150dp"
                         android:background="@drawable/background_protection"/>
 
             </FrameLayout>
