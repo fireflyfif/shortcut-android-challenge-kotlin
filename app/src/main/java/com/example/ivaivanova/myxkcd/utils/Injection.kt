@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import com.example.ivaivanova.myxkcd.data.XkcdRepository
 import com.example.ivaivanova.myxkcd.database.ComicsDb
+import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicViewModelFactory
 import com.example.ivaivanova.myxkcd.ui.favfragment.FavComicsViewModelFactory
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -27,5 +28,9 @@ object Injection {
 
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
         return FavComicsViewModelFactory(provideXkcdRepository(context))
+    }
+
+    fun provideDetailViewModelFactory(context: Context): ViewModelProvider.Factory {
+        return DetailComicViewModelFactory(provideXkcdRepository(context))
     }
 }

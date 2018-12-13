@@ -42,7 +42,7 @@ class FavFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_fav, container, false)
 
         // Initialize the ViewModel
-        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(activity!!.applicationContext))
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(rootView.context))
             .get(FavComicsViewModel::class.java)
 
         // Initialize the Adapter

@@ -1,12 +1,18 @@
 package com.example.ivaivanova.myxkcd.ui.detailactivity
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
+import com.example.ivaivanova.myxkcd.utils.Injection
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.abc_screen_toolbar.*
 import kotlinx.android.synthetic.main.activity_detail.*
 
 /**
@@ -23,6 +29,10 @@ private const val INTENT_COMIC_PARCEL = "comic_parcel"
 
 class DetailActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: DetailComicViewModel
+    private lateinit var comicNumber: String
+    private var currentComic: Comic? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -30,32 +40,55 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val currentComic = intent.getParcelableExtra<Comic>(INTENT_COMIC_PARCEL)
+        currentComic = intent.getParcelableExtra(INTENT_COMIC_PARCEL)
         setupUi(currentComic)
 
+        // Initialize the ViewModel
+        viewModel = ViewModelProviders.of(this, Injection.provideDetailViewModelFactory(
+            this.applicationContext)).get(DetailComicViewModel::class.java)
+
         fav_button.setOnClickListener {
-            addComicToFavs()
+            addComicToFavs(currentComic)
         }
     }
 
 
-    private fun addComicToFavs() {
-
-        //var favComics: Comic() =
+    private fun addComicToFavs(comic: Comic?) {
         // TODO: Q- How to get the value of comics for the scope of this method?
-        //viewModel.insertInDb(favComic = Comic())
+        viewModel.insertInDb(comic)
     }
 
-    private fun setupUi(currentComic: Comic) {
-        // Set the title of the collapsing toolbar to the title of the current comic
-        collapsing_toolbar.setExpandedTitleColor(resources.getColor(R.color.colorPrimary))
-        collapsing_toolbar.title = currentComic.title
-        comic_detail_month.text = currentComic.month
-        comic_detail_year.text = currentComic.year
-        comic_detail_alt.text = currentComic.alt
-        comic_detail_number.text = currentComic.num.toString()
-        comic_detail_description.text = currentComic.transcript
+    private fun deleteComic(comicNum: String) {
+        viewModel.deleteItemFromDb(comicNum)
+    }
 
-        Picasso.get().load(currentComic.image).into(comic_detail_image)
+    private fun setupUi(currentComic: Comic?) {
+        // Set the title of the collapsing toolbar to the title of the current comic
+        comicNumber = currentComic?.num.toString()
+        collapsing_toolbar.setExpandedTitleColor(resources.getColor(R.color.colorPrimary))
+        collapsing_toolbar.title = currentComic?.title
+        comic_detail_month.text = currentComic?.month
+        comic_detail_year.text = currentComic?.year
+        comic_detail_alt.text = currentComic?.alt
+        comic_detail_number.text = comicNumber
+        comic_detail_description.text = currentComic?.transcript
+
+        Picasso.get().load(currentComic?.image).into(comic_detail_image)
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menuInflater.inflate(R.menu.detail_comic_option, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_delete ->  {
+                deleteComic(comicNumber)
+                return true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

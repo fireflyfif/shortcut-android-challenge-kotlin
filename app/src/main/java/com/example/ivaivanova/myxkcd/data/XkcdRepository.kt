@@ -27,7 +27,7 @@ class XkcdRepository(
     /**
      * Function for inserting a favorite comic into the database
      */
-    fun insertItem(favComic: Comic) {
+    fun insertItem(favComic: Comic?) {
         executor.execute { comicsDao.insertComic(favComic) }
     }
 

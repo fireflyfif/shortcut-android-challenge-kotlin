@@ -11,7 +11,7 @@ import com.example.ivaivanova.myxkcd.model.Comic
 interface ComicsDao {
 
     @Insert
-    fun insertComic(favComic: Comic)
+    fun insertComic(favComic: Comic?)
 
     @Query("SELECT * FROM comics")
     fun getAllComics(): DataSource.Factory<Int, Comic>
