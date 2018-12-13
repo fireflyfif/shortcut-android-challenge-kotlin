@@ -21,14 +21,14 @@ abstract class ComicsDb : RoomDatabase() {
         @Volatile
         private var INSTANCE: ComicsDb? = null
 
-        // TODO: Do we still need to make this class Singleton
+        // TODO: Q- Do we still need to make this class Singleton
         fun getInstance(context: Context): ComicsDb =
                 INSTANCE ?: synchronized(this) {
                     INSTANCE
                         ?: create(context).also { INSTANCE = it }
                 }
 
-        // TODO: Why do we need the context here?
+        // TODO: Q- Why do we need the context here?
         private fun create(context: Context): ComicsDb {
             val databaseBuilder = Room.databaseBuilder(context, ComicsDb::class.java, XKCD_DB)
             return databaseBuilder.build()

@@ -11,7 +11,7 @@ import retrofit2.Response
 /**
  * A data source that uses the next comic number for paging through all xkcd comics
  *
- * TODO: Should I put the ApiService within the scope of the class or should it stay as a private variable?
+ * TODO: Q- Should I put the ApiService within the scope of the class or should it stay as a private variable?
  */
 class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 

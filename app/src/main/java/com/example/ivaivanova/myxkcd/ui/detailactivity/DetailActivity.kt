@@ -6,16 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.utils.Injection
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.abc_screen_toolbar.*
 import kotlinx.android.synthetic.main.activity_detail.*
 
 /**
@@ -50,10 +46,6 @@ class DetailActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, Injection.provideDetailViewModelFactory(
             this.applicationContext)).get(DetailComicViewModel::class.java)
 
-        fav_button.setOnClickListener {
-            addComicToFavs(currentComic)
-            Snackbar.make(coordinator_detail_comic, "Comic starred!", Snackbar.LENGTH_SHORT).show()
-        }
     }
 
     private fun addComicToFavs(comic: Comic?) {
@@ -88,7 +80,15 @@ class DetailActivity : AppCompatActivity() {
         return when (item?.itemId) {
             R.id.action_delete ->  {
                 deleteComic(comicNumber)
-                Snackbar.make(coordinator_detail_comic, "Comic deleted!", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(coordinator_detail_comic, "Comic deleted!", Snackbar.LENGTH_SHORT)
+                    .show()
+                return true
+            }
+
+            R.id.action_insert -> {
+                addComicToFavs(currentComic)
+                Snackbar.make(coordinator_detail_comic, "Comic starred!", Snackbar.LENGTH_SHORT)
+                    .show()
                 return true
             }
 

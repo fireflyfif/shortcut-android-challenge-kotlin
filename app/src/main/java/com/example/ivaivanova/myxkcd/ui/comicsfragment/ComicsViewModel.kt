@@ -26,11 +26,10 @@ class ComicsViewModel: ViewModel() {
 
     init {
         // TODO: Question: I have no idea what does switchMap do!!!
-        // TODO: Q -
+        // TODO: Show the network state when there is a problem with the network
         networkState = switchMap(comicName) { networkState }
         loadingState = switchMap(comicName) { loadingState }
 
-        // COMPLETED: Move this in the ViewModel later
         val config = PagedList.Config.Builder()
             .setPageSize(10)
             .setEnablePlaceholders(false)

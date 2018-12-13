@@ -16,10 +16,10 @@ class XkcdLocalCache(
     private val ioExecutor: Executor
 ) {
 
-    // TODO: What do we do here with the second argument? Is it a function?
+
     /**
      * Insert a list of comics in the database, on a background thread.
-     * TODO: Remove if not used!
+     * Remove if not used!
      */
     fun insert(comicsList: List<Comic>, insertFinished: () -> Unit) {
         ioExecutor.execute {

@@ -15,11 +15,11 @@ import com.squareup.picasso.Picasso
  */
 class FavComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val comicTitle: TextView = view.findViewById(R.id.comic_title)
-    private val comicMonth: TextView = view.findViewById(R.id.comic_month)
-    private val comicNumber: TextView = view.findViewById(R.id.comic_number)
-    private val comicYear: TextView = view.findViewById(R.id.comic_year)
-    private val comicImage: ImageView = view.findViewById(R.id.comic_image)
+    private val comicTitle: TextView = view.findViewById(R.id.fav_comic_title)
+    private val comicMonth: TextView = view.findViewById(R.id.fav_comic_month)
+    private val comicNumber: TextView = view.findViewById(R.id.fav_comic_number)
+    private val comicYear: TextView = view.findViewById(R.id.fav_comic_year)
+    private val comicImage: ImageView = view.findViewById(R.id.fav_comic_image)
     private var comic: Comic? = null
 
 
@@ -43,7 +43,7 @@ class FavComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     companion object {
         fun create(parent: ViewGroup): FavComicsViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.comic_item, parent, false)
+                .inflate(R.layout.fav_comic_item, parent, false)
             return FavComicsViewHolder(view)
         }
     }

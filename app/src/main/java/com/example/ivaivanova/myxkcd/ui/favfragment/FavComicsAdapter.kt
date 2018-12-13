@@ -13,7 +13,7 @@ class FavComicsAdapter : PagedListAdapter<Comic, RecyclerView.ViewHolder> (XkcdD
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return FavComicsViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.comic_item, parent, false))
+            .inflate(R.layout.fav_comic_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
