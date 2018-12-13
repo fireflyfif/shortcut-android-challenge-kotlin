@@ -4,10 +4,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.utils.Injection
@@ -49,9 +52,9 @@ class DetailActivity : AppCompatActivity() {
 
         fav_button.setOnClickListener {
             addComicToFavs(currentComic)
+            Snackbar.make(coordinator_detail_comic, "Comic starred!", Snackbar.LENGTH_SHORT).show()
         }
     }
-
 
     private fun addComicToFavs(comic: Comic?) {
         // TODO: Q- How to get the value of comics for the scope of this method?
@@ -76,15 +79,16 @@ class DetailActivity : AppCompatActivity() {
         Picasso.get().load(currentComic?.image).into(comic_detail_image)
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_comic_option, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.action_delete ->  {
                 deleteComic(comicNumber)
+                Snackbar.make(coordinator_detail_comic, "Comic deleted!", Snackbar.LENGTH_SHORT).show()
                 return true
             }
 
