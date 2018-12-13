@@ -18,17 +18,6 @@ class FavFragment : Fragment() {
     private lateinit var viewModel: FavComicsViewModel
     private lateinit var favAdapter: FavComicsAdapter
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment ComicsFragment.
-         */
-        fun newInstance(): FavFragment =
-            FavFragment()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -70,9 +59,17 @@ class FavFragment : Fragment() {
                 fav_progress_bar.visibility = View.INVISIBLE
                 fav_empty_text.visibility = View.VISIBLE
             }
-
-
         })
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @return A new instance of fragment ComicsFragment.
+         */
+        fun newInstance(): FavFragment = FavFragment()
     }
 
 }

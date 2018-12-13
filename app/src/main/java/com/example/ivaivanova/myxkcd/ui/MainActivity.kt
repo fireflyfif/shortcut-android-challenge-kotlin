@@ -10,6 +10,7 @@ import android.util.Log
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.ui.comicsfragment.ComicsFragment
 import com.example.ivaivanova.myxkcd.ui.favfragment.FavFragment
+import com.example.ivaivanova.myxkcd.ui.searchfragment.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_search -> {
                 toolbar.title = "Search"
-                val comicsFragment = ComicsFragment.newInstance()
+                val comicsFragment = SearchFragment.newInstance()
                 openFragment(comicsFragment)
                 return@OnNavigationItemSelectedListener true
             }
