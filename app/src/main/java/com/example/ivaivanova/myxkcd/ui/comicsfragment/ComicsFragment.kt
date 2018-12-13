@@ -28,6 +28,10 @@ import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
  */
 class ComicsFragment : Fragment() {
 
+    // TODO: Fix issue with loading new data when tabs are changed
+    // When I initialize the fragment from onCreate it loads new data on change orientation
+    // If not - no default fragment is shown upon launching before selecting a bottom navigation tab
+
     private lateinit var comicsAdapter: XkcdAdapter
     private lateinit var comicsRv: RecyclerView
     private lateinit var swipeToRefresh: SwipeRefreshLayout
