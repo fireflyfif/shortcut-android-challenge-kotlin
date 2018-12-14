@@ -21,7 +21,8 @@ abstract class ComicsDb : RoomDatabase() {
         @Volatile
         private var INSTANCE: ComicsDb? = null
 
-        // TODO: Q- Do we still need to make this class Singleton
+        // TODO: Q- If this class should be a Singleton why not making it am object?
+        // TODO: Q- Why do we need this getInstance method here?
         fun getInstance(context: Context): ComicsDb =
                 INSTANCE ?: synchronized(this) {
                     INSTANCE

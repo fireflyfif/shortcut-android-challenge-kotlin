@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         // TODO: Set a default fragment to be shown when launching!
         // Open the first fragment when launching.
         // But it is being initialised on each configuration change
-        openFragment(ComicsFragment.newInstance())
+        //openFragment(ComicsFragment.newInstance())
 
         // Try to set the default fragment (not working)
         bottom_navigation.selectedItemId = R.id.navigation_comics
