@@ -6,12 +6,15 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v4.widget.TextViewCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
@@ -36,6 +39,8 @@ class ComicsFragment : Fragment() {
     private lateinit var comicsAdapter: XkcdAdapter
     private lateinit var comicsRv: RecyclerView
     private lateinit var swipeToRefresh: SwipeRefreshLayout
+    private lateinit var errorMsg: TextView
+    private lateinit var progressBar: ProgressBar
 
     // TODO: Question - To understand when to use lateinit variable and when not to
     private lateinit var viewModel: ComicsViewModel
@@ -56,10 +61,13 @@ class ComicsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_comics, container, false)
 
-        // Initialize the recycler view first
-        comicsRv = rootView.findViewById(R.id.comics_rv) as RecyclerView
-
-        swipeToRefresh = rootView.findViewById(R.id.swipe_refresh) as SwipeRefreshLayout
+        // Initialize the views first
+        with(rootView) {
+            comicsRv = findViewById(R.id.comics_rv)
+            swipeToRefresh = findViewById(R.id.swipe_refresh)
+            errorMsg = findViewById(R.id.error_message)
+            progressBar = findViewById(R.id.progress_bar)
+        }
 
         // Initialize the View Model
         viewModel = ViewModelProviders.of(this).get(ComicsViewModel::class.java)
@@ -91,11 +99,18 @@ class ComicsFragment : Fragment() {
             comicsAdapter.submitList(it)
         })
 
-        viewModel.networkState.observe(this, Observer {
+        /*viewModel.networkState.observe(this, Observer {
             comicsAdapter.setNetworkState(it!!)
+        })*/
+        viewModel.getState().observe(this, Observer { state ->
+            progressBar.visibility = if (viewModel.listIsEmpty() && state == NetworkState.LOADING)
+                View.VISIBLE else View.GONE
+
+            errorMsg.visibility = if (viewModel.listIsEmpty() && state == NetworkState.error("Error message"))
+                View.VISIBLE else View.GONE
+
         })
     }
-
 
     // TODO: Check why is this method not working?
     private fun initSwipeToRefresh() {

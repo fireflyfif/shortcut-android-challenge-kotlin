@@ -14,12 +14,12 @@ import com.example.ivaivanova.myxkcd.utils.NetworkState
  * ViewModel for the Comics class
  * NT: Do not hold an instance of the context here!!!
  */
-class ComicsViewModel: ViewModel() {
+class ComicsViewModel : ViewModel() {
 
-    private val comicName: MutableLiveData<String> = MutableLiveData()
     val comicLiveData = MutableLiveData<XkcdDataSource>()
 
     var comicsResult: LiveData<PagedList<Comic>>
+    private val comicsDataSourceFactory: XkcdDataSourceFactory = XkcdDataSourceFactory()
 
     lateinit var networkState: LiveData<NetworkState>
     lateinit var loadingState: LiveData<NetworkState>
@@ -31,21 +31,28 @@ class ComicsViewModel: ViewModel() {
         //networkState = switchMap(comicName) { networkState }
         //loadingState = switchMap(comicName) { loadingState }
 
-        networkState = switchMap(comicLiveData) { input -> networkState }
-        loadingState = switchMap(comicLiveData) { input -> networkState }
+        //networkState = switchMap(comicLiveData) { input -> networkState }
+        //loadingState = switchMap(comicLiveData) { input -> networkState }
 
         // Configure the PagedList
         val config = PagedList.Config.Builder()
-            .setInitialLoadSizeHint(10)
+            .setInitialLoadSizeHint(20)
             .setPageSize(10)
             .setEnablePlaceholders(false)
             .build()
 
-        comicsResult = initializedPagedListBuilder(config).build()
+        comicsResult = LivePagedListBuilder<Int, Comic>(comicsDataSourceFactory, config)
+            .build()
     }
 
+    fun getState(): LiveData<NetworkState> =
+        switchMap(
+            comicsDataSourceFactory.comicsDataSourceLiveData,
+            XkcdDataSource::netState
+        )
 
-    private fun initializedPagedListBuilder(config: PagedList.Config) :
+
+    private fun initializedPagedListBuilder(config: PagedList.Config):
             LivePagedListBuilder<Int, Comic> {
 
         val dataSourceFactory = object : DataSource.Factory<Int, Comic>() {
@@ -59,13 +66,17 @@ class ComicsViewModel: ViewModel() {
 
     fun refreshData() {
         val config = PagedList.Config.Builder()
-            .setInitialLoadSizeHint(10)
+            .setInitialLoadSizeHint(20)
             .setPageSize(10)
             .setEnablePlaceholders(false)
             .build()
 
         comicsResult.value?.config
-        comicsResult = initializedPagedListBuilder(config).build()
+        comicsResult = LivePagedListBuilder<Int, Comic>(comicsDataSourceFactory, config)
+            .build()
     }
 
+    fun listIsEmpty(): Boolean {
+        return comicsResult.value?.isEmpty() ?: true
+    }
 }

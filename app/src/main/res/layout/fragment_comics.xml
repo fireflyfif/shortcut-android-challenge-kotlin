@@ -32,20 +32,20 @@
                 android:id="@+id/error_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:padding="@dimen/padding_16dp"
                 android:text="@string/error_message"
-                android:textColor="@color/colorAccent"
-                android:visibility="invisible" />
+                android:textColor="@color/colorPrimaryDark"
+                android:visibility="visible" />
 
         <ProgressBar
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_10dp"
-                android:visibility="invisible" />
+                android:progressTint="@color/colorPrimaryDark"
+                android:visibility="visible" />
 
     </LinearLayout>
 
