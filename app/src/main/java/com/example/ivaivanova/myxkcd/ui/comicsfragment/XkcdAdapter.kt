@@ -21,7 +21,7 @@ class XkcdAdapter(
             R.layout.comic_item -> ComicsViewHolder.create(
                 parent
             )
-            // TODO: Check why is it not switching to this layout when there is no net
+            // TODO: Check why is it not switching to this layout when there is no internet
             R.layout.network_state_item -> NetworkStateViewHolder.create(
                 parent,
                 retryCallback

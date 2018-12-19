@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
+import com.example.ivaivanova.myxkcd.utils.NetworkState
 
 
 /**
@@ -55,7 +56,6 @@ class ComicsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_comics, container, false)
 
-        // TODO: Question - Why the Kotlin extensions are not working within a Fragment?
         // Initialize the recycler view first
         comicsRv = rootView.findViewById(R.id.comics_rv) as RecyclerView
 
@@ -65,7 +65,6 @@ class ComicsFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ComicsViewModel::class.java)
 
         initAdapter()
-        initializeViewModel()
         initSwipeToRefresh()
 
         return rootView
@@ -85,11 +84,9 @@ class ComicsFragment : Fragment() {
             columnCount,
             StaggeredGridLayoutManager.VERTICAL
         )
+        // Set the adapter to the recycler view
         comicsRv.adapter = comicsAdapter
-    }
 
-
-    private fun initializeViewModel() {
         viewModel.comicsResult.observe(this, Observer {
             comicsAdapter.submitList(it)
         })
@@ -99,8 +96,13 @@ class ComicsFragment : Fragment() {
         })
     }
 
+
     // TODO: Check why is this method not working?
     private fun initSwipeToRefresh() {
+
+        viewModel.comicsResult.observe(this, Observer {
+            comicsAdapter.submitList(it)
+        })
 
         swipeToRefresh.setOnRefreshListener {
             viewModel.refreshData()
@@ -121,15 +123,6 @@ class ComicsFragment : Fragment() {
         startActivity(activity?.DetailComicIntent(currentComic))
     }
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
 
     companion object {
         /**

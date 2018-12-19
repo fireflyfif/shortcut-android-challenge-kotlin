@@ -1,9 +1,11 @@
 package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
+import android.arch.lifecycle.MutableLiveData
 import com.example.ivaivanova.myxkcd.model.Comic
 import android.arch.paging.PageKeyedDataSource
 import android.util.Log
 import com.example.ivaivanova.myxkcd.api.XkcdService
+import com.example.ivaivanova.myxkcd.utils.NetworkState
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,6 +17,9 @@ import retrofit2.Response
  */
 class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
+    val networkState = MutableLiveData<NetworkState>()
+    val loadingState = MutableLiveData<NetworkState>()
+
     private val api = XkcdService.create()
     var comicId: Int = 0
 
@@ -23,6 +28,10 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Comic>
     ) {
+
+        // Update NetworkState
+        networkState.postValue(NetworkState.LOADING)
+        loadingState.postValue(NetworkState.LOADING)
 
         api.getCurrentComic().enqueue(object : Callback<Comic> {
 
@@ -40,11 +49,19 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
                     Log.d("XkcdDataSource", "Current comic ID is $comicId")
 
                     callback.onResult(comicList, null, comicId)
+
+                    networkState.postValue(NetworkState.LOADED)
+                    loadingState.postValue(NetworkState.LOADED)
+
+                } else {
+
+                    networkState.postValue(NetworkState.error("Error code ${response.code()}"))
                 }
             }
 
             override fun onFailure(call: Call<Comic>?, t: Throwable?) {
                 Log.e("XkcdDataSource", "Failed to fetch data.")
+                networkState.postValue(NetworkState.error("Error message ${t?.message}"))
             }
         })
     }
@@ -53,6 +70,10 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
         params: LoadParams<Int>,
         callback: LoadCallback<Int, Comic>
     ) {
+
+        // Update NetworkState
+        networkState.postValue(NetworkState.LOADING)
+        loadingState.postValue(NetworkState.LOADING)
 
         // COMPLETED: Make the second call here by setting the comicId for the key for next page
         api.getComicById(comicId).enqueue(object : Callback<Comic> {
@@ -75,12 +96,18 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
                         Log.d("XkcdDataSource", "LoadAfter: Current comic ID is $comicId")
 
                         callback.onResult(comicList, comicId)
+
+                        networkState.postValue(NetworkState.LOADED)
+                        loadingState.postValue(NetworkState.LOADED)
                     }
+                } else {
+                    networkState.postValue(NetworkState.error("Error code ${response.code()}"))
                 }
             }
 
             override fun onFailure(call: Call<Comic>, t: Throwable) {
                 Log.e("XkcdDataSource", "Failed to fetch data.")
+                networkState.postValue(NetworkState.error("Error message ${t?.message}"))
             }
         })
     }
