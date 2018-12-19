@@ -99,20 +99,17 @@ class ComicsFragment : Fragment() {
             comicsAdapter.submitList(it)
         })
 
-        /*viewModel.networkState.observe(this, Observer {
-            comicsAdapter.setNetworkState(it!!)
-        })*/
         viewModel.getState().observe(this, Observer { state ->
             progressBar.visibility = if (viewModel.listIsEmpty() && state == NetworkState.LOADING)
                 View.VISIBLE else View.GONE
 
-            errorMsg.visibility = if (viewModel.listIsEmpty() && state == NetworkState.error("Error message"))
+            errorMsg.visibility = if (viewModel.listIsEmpty() && state == NetworkState.FAILED)
                 View.VISIBLE else View.GONE
 
+            comicsAdapter.setNetworkState(state ?: NetworkState.LOADED)
         })
     }
 
-    // TODO: Check why is this method not working?
     private fun initSwipeToRefresh() {
 
         viewModel.comicsResult.observe(this, Observer {
@@ -122,11 +119,10 @@ class ComicsFragment : Fragment() {
         swipeToRefresh.setOnRefreshListener {
             viewModel.refreshData()
 
+            initAdapter()
             // Hide the refresh icon
             swipeToRefresh.isRefreshing = false
         }
-
-        initAdapter()
     }
 
     /**

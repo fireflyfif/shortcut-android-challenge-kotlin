@@ -57,13 +57,14 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
                 } else {
 
-                    updateState(NetworkState.error("Error code ${response.code()}"))
+                    updateState(NetworkState.FAILED)
                 }
             }
 
             override fun onFailure(call: Call<Comic>?, t: Throwable?) {
                 Log.e("XkcdDataSource", "Failed to fetch data.")
-                updateState(NetworkState.error("Error message ${t?.message}"))
+                updateState(NetworkState.FAILED)
+                //updateState(NetworkState.error("Error message ${t?.message}"))
             }
         })
     }
@@ -100,16 +101,16 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
                         callback.onResult(comicList, comicId)
 
                         updateState(NetworkState.LOADED)
-                        //loadingState.postValue(NetworkState.LOADED)
                     }
                 } else {
-                    updateState(NetworkState.error("Error code ${response.code()}"))
+                    updateState(NetworkState.FAILED)
                 }
             }
 
             override fun onFailure(call: Call<Comic>, t: Throwable) {
                 Log.e("XkcdDataSource", "Failed to fetch data.")
-                updateState(NetworkState.error("Error message ${t?.message}"))
+                updateState(NetworkState.FAILED)
+                //updateState(NetworkState.error("Error message ${t?.message}"))
             }
         })
     }
