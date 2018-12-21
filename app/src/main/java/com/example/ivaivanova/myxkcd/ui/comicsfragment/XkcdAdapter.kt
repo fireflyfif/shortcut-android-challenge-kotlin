@@ -21,7 +21,7 @@ class XkcdAdapter(
             R.layout.comic_item -> ComicsViewHolder.create(
                 parent
             )
-            // TODO: Check why is it not switching to this layout when there is no internet
+
             R.layout.network_state_item -> NetworkStateViewHolder.create(
                 parent,
                 retryCallback
@@ -49,7 +49,7 @@ class XkcdAdapter(
         }
     }
 
-    fun setNetworkState(newNetworkState: NetworkState) {
+    fun setNetworkState(newNetworkState: NetworkState?) {
         val previousState = this.networkState
         val previousExtraRow = hasExtraRow()
 

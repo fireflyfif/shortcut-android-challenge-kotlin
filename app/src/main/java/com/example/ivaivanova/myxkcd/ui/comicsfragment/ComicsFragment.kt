@@ -2,11 +2,9 @@ package com.example.ivaivanova.myxkcd.ui.comicsfragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v4.widget.TextViewCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
@@ -84,7 +82,7 @@ class ComicsFragment : Fragment() {
         // TODO: Q- Do we still need to initialize the Adapter class if there is no functions in the arguments?
         // Initialize the Adapter
         comicsAdapter = XkcdAdapter(
-            { viewModel.refreshData() },
+            { refreshComicsOnButtonClicked() },
             { comicItem: Comic? -> comicItemClicked(comicItem) })
 
         // The recycler view is null???
@@ -95,9 +93,7 @@ class ComicsFragment : Fragment() {
         // Set the adapter to the recycler view
         comicsRv.adapter = comicsAdapter
 
-        viewModel.comicsResult.observe(this, Observer {
-            comicsAdapter.submitList(it)
-        })
+        initViewModel()
 
         viewModel.getState().observe(this, Observer { state ->
             progressBar.visibility = if (viewModel.listIsEmpty() && state == NetworkState.LOADING)
@@ -110,11 +106,17 @@ class ComicsFragment : Fragment() {
         })
     }
 
-    private fun initSwipeToRefresh() {
-
+    private fun initViewModel() {
         viewModel.comicsResult.observe(this, Observer {
             comicsAdapter.submitList(it)
         })
+    }
+
+    private fun initSwipeToRefresh() {
+
+        // TODO: Question: Why do I have to initialize the ViewModel with the data here?
+        // Why is the refreshData() not enough
+        initViewModel()
 
         swipeToRefresh.setOnRefreshListener {
             viewModel.refreshData()
@@ -125,12 +127,16 @@ class ComicsFragment : Fragment() {
         }
     }
 
+    private fun refreshComicsOnButtonClicked() {
+        initViewModel()
+        viewModel.refreshData()
+    }
+
     /**
      * Method that handles the click on an item
      * source: https://medium.com/@passsy/starting-activities-with-kotlin-my-journey-8b7307f1e460
      */
     private fun comicItemClicked(currentComic: Comic?) {
-
         startActivity(activity?.DetailComicIntent(currentComic))
     }
 

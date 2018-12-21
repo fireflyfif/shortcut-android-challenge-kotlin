@@ -16,23 +16,10 @@ import com.example.ivaivanova.myxkcd.utils.NetworkState
  */
 class ComicsViewModel : ViewModel() {
 
-    val comicLiveData = MutableLiveData<XkcdDataSource>()
-
     var comicsResult: LiveData<PagedList<Comic>>
     private val comicsDataSourceFactory: XkcdDataSourceFactory = XkcdDataSourceFactory()
 
-    lateinit var networkState: LiveData<NetworkState>
-    lateinit var loadingState: LiveData<NetworkState>
-
-
     init {
-        // TODO: Question: I have no idea what does switchMap do!!!
-        // TODO: Show the network state when there is a problem with the network
-        //networkState = switchMap(comicName) { networkState }
-        //loadingState = switchMap(comicName) { loadingState }
-
-        //networkState = switchMap(comicLiveData) { input -> networkState }
-        //loadingState = switchMap(comicLiveData) { input -> networkState }
 
         // Configure the PagedList
         val config = PagedList.Config.Builder()
@@ -52,6 +39,8 @@ class ComicsViewModel : ViewModel() {
         )
 
 
+    // Temp method before using the Factory for the Data Source
+    // TODO: Remove
     private fun initializedPagedListBuilder(config: PagedList.Config):
             LivePagedListBuilder<Int, Comic> {
 
@@ -71,7 +60,7 @@ class ComicsViewModel : ViewModel() {
             .setEnablePlaceholders(false)
             .build()
 
-        comicsResult.value?.config
+        //comicsResult.value?.config
         comicsResult = LivePagedListBuilder<Int, Comic>(comicsDataSourceFactory, config)
             .build()
     }

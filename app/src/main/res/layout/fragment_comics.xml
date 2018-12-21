@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
@@ -26,6 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginBottom="@dimen/margin_bottom_for_bottomnav"
             android:padding="@dimen/padding_16dp">
 
         <TextView
@@ -37,7 +37,8 @@
                 android:padding="@dimen/padding_16dp"
                 android:text="@string/error_message"
                 android:textColor="@color/colorPrimaryDark"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:textSize="18sp"/>
 
         <ProgressBar
                 android:id="@+id/progress_bar"

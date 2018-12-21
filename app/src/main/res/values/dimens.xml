@@ -13,4 +13,6 @@
     <dimen name="margin_horizontal">16dp</dimen>
     <dimen name="margin_vertical_8dp">8dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="error_margin_bottom">70dp</dimen>
+    <dimen name="margin_bottom_for_bottomnav">60dp</dimen>
 </resources>
