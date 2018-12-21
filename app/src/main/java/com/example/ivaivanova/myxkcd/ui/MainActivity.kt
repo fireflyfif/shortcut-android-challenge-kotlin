@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private val FRAGMENT_ID = "blablafragment"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,9 +55,11 @@ class MainActivity : AppCompatActivity() {
         // TODO: Set a default fragment to be shown when launching!
         // Open the first fragment when launching.
         // But it is being initialised on each configuration change
-        openFragment(ComicsFragment.newInstance())
         val fragment = ComicsFragment.newInstance()
 
+        if (supportFragmentManager.findFragmentByTag(FRAGMENT_ID) == null) {
+            openFragment(fragment)
+        }
 
         // Try to set the default fragment (not working)
         bottom_navigation.selectedItemId = R.id.navigation_comics
@@ -71,10 +75,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.setPrimaryNavigationFragment(fragment)
+//        transaction.setPrimaryNavigationFragment(fragment)
         transaction.setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-        transaction.replace(R.id.content_container, fragment)
-        transaction.addToBackStack(fragment.javaClass.simpleName)
+        transaction.replace(R.id.content_container, fragment, FRAGMENT_ID)
+//        transaction.addToBackStack(fragment.javaClass.simpleName)
         transaction.commit()
     }
 }

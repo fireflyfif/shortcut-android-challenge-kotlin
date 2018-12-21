@@ -20,6 +20,7 @@ class FavComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val comicNumber: TextView = view.findViewById(R.id.fav_comic_number)
     private val comicYear: TextView = view.findViewById(R.id.fav_comic_year)
     private val comicImage: ImageView = view.findViewById(R.id.fav_comic_image)
+    private val comicDetails: TextView = view.findViewById(R.id.fav_comic_alt)
     private var comic: Comic? = null
 
 
@@ -32,6 +33,7 @@ class FavComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             comicMonth.text = comics.month
             comicNumber.text = comics.num.toString()
             comicYear.text = comics.year
+            comicDetails.text = comics.alt
 
             // Set the image with Picasso
             Picasso.get().load(comics.image).into(comicImage)
