@@ -48,6 +48,8 @@ dependencies {
     // picasso
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
+    implementation 'com.commit451:PhotoView:1.2.4'
+
     // lifecycle AAC
     implementation "android.arch.lifecycle:extensions:$archVersion"
     implementation "android.arch.lifecycle:viewmodel:$archVersion"

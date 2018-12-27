@@ -123,7 +123,7 @@
                 app:layout_constraintTop_toTopOf="@+id/slash"
                 tools:text="Year"/>
 
-        <ImageView
+        <uk.co.senab.photoview.PhotoView
                 android:id="@+id/fav_comic_image"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/thumbnail_height"
@@ -136,7 +136,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/accent_bg"
                 app:srcCompat="@drawable/ic_launcher_background"/>
 
-        <ImageView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_star_black_24dp"

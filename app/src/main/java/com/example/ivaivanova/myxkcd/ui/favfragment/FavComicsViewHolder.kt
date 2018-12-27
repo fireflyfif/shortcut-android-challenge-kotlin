@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.squareup.picasso.Picasso
+import uk.co.senab.photoview.PhotoView
 
 /**
  * ViewHolder for the Comics RecyclerView list item
@@ -19,7 +19,7 @@ class FavComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val comicMonth: TextView = view.findViewById(R.id.fav_comic_month)
     private val comicNumber: TextView = view.findViewById(R.id.fav_comic_number)
     private val comicYear: TextView = view.findViewById(R.id.fav_comic_year)
-    private val comicImage: ImageView = view.findViewById(R.id.fav_comic_image)
+    private val comicImage: PhotoView = view.findViewById(R.id.fav_comic_image)
     private val comicDetails: TextView = view.findViewById(R.id.fav_comic_alt)
     private var comic: Comic? = null
 

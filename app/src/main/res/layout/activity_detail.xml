@@ -156,7 +156,7 @@
                     app:layout_constraintTop_toTopOf="@+id/comic_detail_month"
                     tools:text="Year"/>
 
-            <ImageView
+            <uk.co.senab.photoview.PhotoView
                     android:id="@+id/comic_detail_image"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_image_height"

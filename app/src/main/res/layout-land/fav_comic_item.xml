@@ -127,7 +127,7 @@
                 app:layout_constraintTop_toTopOf="@+id/slash"
                 tools:text="Year"/>
 
-        <ImageView
+        <uk.co.senab.photoview.PhotoView
                 android:id="@+id/fav_comic_image"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/thumbnail_height"
