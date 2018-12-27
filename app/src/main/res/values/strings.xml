@@ -13,4 +13,5 @@
     <string name="empty_msg">No favorite items found. \nAdd your favorite XKCD comic!</string>
     <string name="delete_comic">Delete comic</string>
     <string name="star_comic">Star comic</string>
+    <string name="double_tap_to_zoom">Double Tap to Zoom</string>
 </resources>

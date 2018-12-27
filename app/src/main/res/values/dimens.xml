@@ -9,7 +9,7 @@
     <dimen name="card_radius">0dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="padding_horizontal">8dp</dimen>
-    <dimen name="detail_image_height">400dp</dimen>
+    <dimen name="detail_image_height">500dp</dimen>
     <dimen name="margin_horizontal">16dp</dimen>
     <dimen name="margin_vertical_8dp">8dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
