@@ -48,7 +48,10 @@ dependencies {
     // picasso
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
+    // photoview for zooming
     implementation 'com.commit451:PhotoView:1.2.4'
+
+    implementation "android.arch.work:work-runtime:1.0.0-beta01"
 
     // lifecycle AAC
     implementation "android.arch.lifecycle:extensions:$archVersion"
