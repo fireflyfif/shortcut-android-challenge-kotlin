@@ -18,7 +18,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 app:collapsedTitleGravity="start"
                 android:fitsSystemWindows="true"
                 app:expandedTitleGravity="center_horizontal"
@@ -33,7 +33,7 @@
 
                 <View
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/background_protection"/>
 
             </FrameLayout>
@@ -159,11 +159,9 @@
             <uk.co.senab.photoview.PhotoView
                     android:id="@+id/comic_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/detail_image_height"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
