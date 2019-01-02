@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.ivaivanova.myxkcd.R
@@ -16,11 +17,17 @@ class NewComicBgWork(context: Context, params: WorkerParameters) : Worker(contex
         val comicNumber: String? = inputData.getString(TASK_DESC)
 
         // TODO: Do some work here - schedule fetching new comics every Monday, Wed, and Friday
+        displayNotification("New comic published.", comicNumber)
 
-        return Result.success()
+        val outputData: Data = Data.Builder()
+            .putString(NewComicBgWork.TASK_DESC, "This received result here.")
+            .build()
+
+        return Result.success(outputData)
     }
 
-    private fun displayNotification(title: String, task: String) {
+
+    private fun displayNotification(title: String, task: String?) {
         val notificationManager: NotificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

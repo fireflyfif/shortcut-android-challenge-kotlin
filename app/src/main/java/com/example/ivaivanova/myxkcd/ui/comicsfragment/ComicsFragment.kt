@@ -8,15 +8,18 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
 import com.example.ivaivanova.myxkcd.utils.NetworkState
+import com.example.ivaivanova.myxkcd.utils.NewComicBgWork
+import java.util.*
 
 
 /**
@@ -40,11 +43,23 @@ class ComicsFragment : Fragment() {
     private lateinit var errorMsg: TextView
     private lateinit var progressBar: ProgressBar
 
-    // TODO: Question - To understand when to use lateinit variable and when not to
+    // COMPLETED: Question - To understand when to use lateinit variable and when not to
     private lateinit var viewModel: ComicsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val dataMessage: Data = Data.Builder()
+            .putString(NewComicBgWork.TASK_DESC, "This is to be the recent comic number")
+            .build()
+
+        val workRequest: OneTimeWorkRequest = OneTimeWorkRequest.Builder(NewComicBgWork::class.java)
+            .setInputData(dataMessage)
+            .build()
+
+        WorkManager.getInstance().enqueue(workRequest)
+
+        //WorkManager.getInstance().obs
 
         Log.d("ComicsFragment", "onCreate called.")
     }
@@ -150,5 +165,13 @@ class ComicsFragment : Fragment() {
          */
         fun newInstance(): ComicsFragment =
             ComicsFragment()
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        return super.onContextItemSelected(item)
     }
 }
