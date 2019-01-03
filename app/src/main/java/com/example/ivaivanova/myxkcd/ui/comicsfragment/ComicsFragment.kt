@@ -65,10 +65,12 @@ class ComicsFragment : Fragment() {
             .build()
 
         // TODO: Make the period work to be scheduled every Monday, Wednesday and Friday
-        val periodicWorkRequest = PeriodicWorkRequest.Builder(NewComicBgWork::class.java, 2, TimeUnit.MINUTES)
+        // So far it's not possible to achieve exact times using PeriodicWorkRequest.
+        // An ugly work-around would be using a OneTimeWorkRequest and when it fires,
+        // set another OneTimeWorkRequest with a new calculated period, and so on.
+        // source: https://stackoverflow.com/a/51904623/8132331
+        val periodicWorkRequest = PeriodicWorkRequest.Builder(NewComicBgWork::class.java, 12, TimeUnit.HOURS)
             .setInputData(dataMessage)
-            //.setPeriodStartTime(5, TimeUnit.MINUTES)
-            //.setScheduleRequestedAt(5, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
 

@@ -55,8 +55,8 @@ class NewComicBgWork(context: Context, params: WorkerParameters) : Worker(contex
 
 
         // Create the notification
-        val notification = NotificationCompat.Builder(applicationContext,
-            "newcomicid")
+        val notification = NotificationCompat.Builder(applicationContext, "newcomicid")
+            // Set the intent that will fire when the user taps the notification
             .setContentIntent(resultIntent)
             .setContentTitle(title)
             .setContentText(task)
