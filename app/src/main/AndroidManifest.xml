@@ -4,6 +4,7 @@
           package="com.example.ivaivanova.myxkcd">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
             android:allowBackup="true"
@@ -13,20 +14,31 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".ui.MainActivity"
-        android:launchMode="singleTop">
+                  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.detailactivity.DetailActivity"
-        android:parentActivityName=".ui.MainActivity">
+                  android:parentActivityName=".ui.MainActivity">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity"/>
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.MainActivity"/>
         </activity>
+
+        <service
+                android:name=".utils.XkcdNewComicNotification"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="NOTIFICATION_SERVICE" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

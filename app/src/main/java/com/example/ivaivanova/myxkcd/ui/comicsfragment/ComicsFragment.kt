@@ -69,19 +69,19 @@ class ComicsFragment : Fragment() {
         // An ugly work-around would be using a OneTimeWorkRequest and when it fires,
         // set another OneTimeWorkRequest with a new calculated period, and so on.
         // source: https://stackoverflow.com/a/51904623/8132331
-        val periodicWorkRequest = PeriodicWorkRequest.Builder(NewComicBgWork::class.java, 12, TimeUnit.HOURS)
+        /*val periodicWorkRequest = PeriodicWorkRequest.Builder(NewComicBgWork::class.java, 12, TimeUnit.HOURS)
             .setInputData(dataMessage)
             .setConstraints(constraints)
-            .build()
+            .build()*/
 
-        WorkManager.getInstance().enqueue(periodicWorkRequest)
+        //WorkManager.getInstance().enqueue(periodicWorkRequest)
 
         // TODO: Not sure what to observe here?
-        WorkManager.getInstance().getWorkInfoByIdLiveData(periodicWorkRequest.id)
+        /*WorkManager.getInstance().getWorkInfoByIdLiveData(periodicWorkRequest.id)
             .observe(this, Observer {
                     WorkInfo ->
 
-            })
+            })*/
 
         Log.d("ComicsFragment", "onCreate called.")
     }

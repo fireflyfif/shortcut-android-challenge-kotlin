@@ -61,6 +61,7 @@ class NewComicBgWork(context: Context, params: WorkerParameters) : Worker(contex
             .setContentTitle(title)
             .setContentText(task)
             .setSmallIcon(R.drawable.ic_number_sign)
+            .setAutoCancel(true)
 
         notificationManager.notify(1, notification.build())
     }
