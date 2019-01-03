@@ -51,6 +51,7 @@ dependencies {
     // photoview for zooming
     implementation 'com.commit451:PhotoView:1.2.4'
 
+    // work manager
     implementation "android.arch.work:work-runtime:1.0.0-beta01"
 
     // lifecycle AAC

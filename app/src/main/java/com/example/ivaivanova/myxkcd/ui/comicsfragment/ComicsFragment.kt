@@ -7,19 +7,20 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.text.format.Time
 import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
+import androidx.work.*
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicIntent
 import com.example.ivaivanova.myxkcd.utils.NetworkState
 import com.example.ivaivanova.myxkcd.utils.NewComicBgWork
 import java.util.*
+import java.util.Calendar.*
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -50,16 +51,35 @@ class ComicsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val dataMessage: Data = Data.Builder()
-            .putString(NewComicBgWork.TASK_DESC, "This is to be the recent comic number")
+            .putString(NewComicBgWork.TASK_DESC, "Click to see it")
             .build()
 
+        // This is used only for a single scheduled work
         val workRequest: OneTimeWorkRequest = OneTimeWorkRequest.Builder(NewComicBgWork::class.java)
             .setInputData(dataMessage)
             .build()
 
-        WorkManager.getInstance().enqueue(workRequest)
+        // COMPLETED: Add constraints on the working request so that it is done only when the device is idle and charged
+        val constraints: Constraints = Constraints.Builder()
+            .setRequiresBatteryNotLow(true)
+            .build()
 
-        //WorkManager.getInstance().obs
+        // TODO: Make the period work to be scheduled every Monday, Wednesday and Friday
+        val periodicWorkRequest = PeriodicWorkRequest.Builder(NewComicBgWork::class.java, 2, TimeUnit.MINUTES)
+            .setInputData(dataMessage)
+            //.setPeriodStartTime(5, TimeUnit.MINUTES)
+            //.setScheduleRequestedAt(5, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance().enqueue(periodicWorkRequest)
+
+        // TODO: Not sure what to observe here?
+        WorkManager.getInstance().getWorkInfoByIdLiveData(periodicWorkRequest.id)
+            .observe(this, Observer {
+                    WorkInfo ->
+
+            })
 
         Log.d("ComicsFragment", "onCreate called.")
     }
