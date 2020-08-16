@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">My XKCD</string>
+    <string name="slash_sign">/</string>
+    <string name="retry">Retry</string>
+    <string name="fab_contentDecription">Add to favorites button</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_message">Nothing to see here. \nCheck your internet connection.</string>
+    <string name="comics">Comics</string>
+    <string name="search">Search</string>
+    <string name="favs">Favs</string>
+    <string name="empty_msg">No favorite items found. \nAdd your favorite XKCD comic!</string>
+    <string name="delete_comic">Delete comic</string>
+    <string name="star_comic">Star comic</string>
+    <string name="double_tap_to_zoom">Double Tap to Zoom</string>
 </resources>
