@@ -25,12 +25,11 @@ abstract class ComicsDb : RoomDatabase() {
         // TODO: Q- Why do we need this getInstance method here?
         fun getInstance(context: Context): ComicsDb =
                 INSTANCE ?: synchronized(this) {
-                    INSTANCE
-                        ?: create(context).also { INSTANCE = it }
+                    INSTANCE ?: create(context).also { INSTANCE = it }
                 }
 
         // TODO: Q- Why do we need the context here?
-        private fun create(context: Context): ComicsDb {
+        fun create(context: Context): ComicsDb {
             val databaseBuilder = Room.databaseBuilder(context, ComicsDb::class.java, XKCD_DB)
             return databaseBuilder.build()
         }

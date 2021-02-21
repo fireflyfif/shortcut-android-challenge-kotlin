@@ -10,7 +10,7 @@ import com.example.ivaivanova.myxkcd.model.Comic
 /**
  * ViewModel for the Favorite Comics
  */
-class FavComicsViewModel(private val repository: XkcdRepository) : ViewModel() {
+class FavComicsViewModel(repository: XkcdRepository) : ViewModel() {
 
     var favComicsResult: LiveData<PagedList<Comic>>
 

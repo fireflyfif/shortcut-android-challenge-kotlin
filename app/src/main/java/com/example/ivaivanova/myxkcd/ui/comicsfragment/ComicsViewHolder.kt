@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.model.Comic
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.comic_item.view.*
 
 /**
  * ViewHolder for the Comics RecyclerView list item
  */
 class ComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val comicTitle: TextView = view.findViewById(R.id.comic_title)
-    private val comicMonth: TextView = view.findViewById(R.id.comic_month)
-    private val comicNumber: TextView = view.findViewById(R.id.comic_number)
-    private val comicYear: TextView = view.findViewById(R.id.comic_year)
     private val comicImage: ImageView = view.findViewById(R.id.comic_image)
     private var comic: Comic? = null
 
@@ -28,10 +24,10 @@ class ComicsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         if (comics != null) {
             // Set the details on the current comic
-            comicTitle.text = comics.title
-            comicMonth.text = comics.month
-            comicNumber.text = comics.num.toString()
-            comicYear.text = comics.year
+            comic_title.text = comics.title
+            comic_month.text = comics.month
+            comic_number.text = comics.num.toString()
+            comic_year.text = comics.year
 
             // Set the image with Picasso
             Picasso.get().load(comics.image).into(comicImage)
