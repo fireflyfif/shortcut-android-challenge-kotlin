@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.IBinder
 import android.support.v4.app.NotificationCompat
 import android.util.Log
+import com.example.ivaivanova.myxkcd.App
 import com.example.ivaivanova.myxkcd.R
 import com.example.ivaivanova.myxkcd.api.XkcdService
 import com.example.ivaivanova.myxkcd.model.Comic
@@ -17,15 +18,16 @@ import com.example.ivaivanova.myxkcd.ui.MainActivity
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 // Using a Service or WorkManager for scheduling a task for a background work
 class XkcdNewComicNotification : Service() {
 
     private val tag = XkcdNewComicNotification::class.java.simpleName
-    var comicId: Int = 0
+    var comicId: Int? = 0
 
     private val api = XkcdService.create()
+    // Get an instance of the Preferences class
+    val preferences: ComicsPreferences = ComicsPreferences(App.context)
 
     override fun onBind(intent: Intent?): IBinder? {
         throw UnsupportedOperationException()
@@ -40,8 +42,7 @@ class XkcdNewComicNotification : Service() {
             Calendar.MONDAY -> getRecentComic()
             Calendar.WEDNESDAY -> getRecentComic()
             Calendar.FRIDAY -> getRecentComic()
-            // For testing purposes
-            Calendar.THURSDAY -> getRecentComic()
+            Calendar.HOUR -> getRecentComic()
             else -> stopSelf() // Stop the service, if it was previously started.
         }
 
@@ -62,14 +63,17 @@ class XkcdNewComicNotification : Service() {
 
                     // Get the recent comic number
                     comicId = currentComic.num
-                    //comicId -= 1
                     Log.d(tag, "Current comic ID is $comicId")
 
-                    // TODO: Only display notification if there is a new comic
-                    //if (comicId)
+                    val latestComicNum: Int? = preferences.getComicNumber()
+                    Log.d(tag, "Last saved comic num in preferences is $latestComicNum")
 
-                    // Display the Notification here
-                    displayNotification("New comic published", comicId.toString())
+                    // TODO: Only display notification if there is a new comic
+                    // Compare the current comic number with the one saved in SharedPreferences
+                    if (comicId!! > latestComicNum!!) {
+                        // Display the Notification here
+                        displayNotification("New comic published", comicId.toString())
+                    }
 
                 } else {
 
@@ -120,8 +124,4 @@ class XkcdNewComicNotification : Service() {
 
         notificationManager.notify(1, notification.build())
     }
-
-    /*companion object {
-        const val TAG = XkcdNewComicNotification::class.java.simpleName
-    }*/
 }
