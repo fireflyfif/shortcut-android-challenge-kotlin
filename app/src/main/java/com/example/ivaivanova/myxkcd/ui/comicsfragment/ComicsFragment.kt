@@ -51,7 +51,7 @@ class ComicsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val dataMessage: Data = Data.Builder()
-            .putString(NewComicBgWork.TASK_DESC, "Click to see it")
+            .putString(NewComicBgWork.TASK_DESC, "Tab to check it out")
             .build()
 
         // This is used only for a single scheduled work

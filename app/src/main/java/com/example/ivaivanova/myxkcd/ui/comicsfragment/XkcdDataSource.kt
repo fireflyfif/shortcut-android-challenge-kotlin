@@ -3,8 +3,11 @@ package com.example.ivaivanova.myxkcd.ui.comicsfragment
 import android.arch.lifecycle.MutableLiveData
 import com.example.ivaivanova.myxkcd.model.Comic
 import android.arch.paging.PageKeyedDataSource
+import android.content.Context
 import android.util.Log
+import com.example.ivaivanova.myxkcd.App
 import com.example.ivaivanova.myxkcd.api.XkcdService
+import com.example.ivaivanova.myxkcd.utils.ComicsPreferences
 import com.example.ivaivanova.myxkcd.utils.NetworkState
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +27,9 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
     private val api = XkcdService.create()
     var comicId: Int = 0
+
+    // Get an instance of the Preferences class
+    val preferences: ComicsPreferences = ComicsPreferences(App.context)
 
 
     override fun loadInitial(
@@ -47,6 +53,11 @@ class XkcdDataSource : PageKeyedDataSource<Int, Comic>() {
 
                     // Get the recent comic number
                     comicId = currentComic.num
+
+                    // Save the number into preferences
+                    preferences.setComicNumber(comicId)
+
+                    // Subtract one from the comic number each time
                     comicId -= 1
                     Log.d("XkcdDataSource", "Current comic ID is $comicId")
 

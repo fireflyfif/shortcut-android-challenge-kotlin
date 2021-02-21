@@ -6,7 +6,6 @@ import com.example.ivaivanova.myxkcd.data.XkcdRepository
 import com.example.ivaivanova.myxkcd.database.ComicsDb
 import com.example.ivaivanova.myxkcd.ui.detailactivity.DetailComicViewModelFactory
 import com.example.ivaivanova.myxkcd.ui.favfragment.FavComicsViewModelFactory
-import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 /**
